@@ -341,6 +341,13 @@ html{scroll-padding-bottom:70px}
 .share::before{display:none}
 #outro .send{color:#141010;border-color:#141010}
 
+/* Aviso: local de votação */
+.aviso-local{background:var(--tint);padding:20px 16px 8px;border-top-width:8px}
+.aviso-local .stat b{font-family:var(--display,inherit)}
+.passos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.passos li{display:grid;grid-template-columns:2.2rem 1fr;gap:12px;align-items:start}
+.passos b{background:var(--red);color:#fff;font-weight:900;text-align:center;line-height:2.2rem}
+
 </style>
 </head>
 <body>
@@ -405,6 +412,18 @@ html{scroll-padding-bottom:70px}
       <a class="jb sim" href="#sim">Por que <b>sim</b> Lula</a>
     </nav>
   </header>
+
+  <section class="block rv aviso-local" id="local" aria-labelledby="h-local">
+    <h2 id="h-local">Seu local de votação pode ter mudado</h2>
+    <p class="stat"><b>4.352 <i>seções</i></b> tiveram o endereço alterado para o 2º turno, cerca de 0,87% do país. São Paulo (982), Minas Gerais (514), Rio de Janeiro (431) e Bahia (312) têm mais mudanças. Os motivos citados são reformas de última hora, acessibilidade e danos de chuva e vento.</p>
+    <ol class="passos">
+      <li><b>1</b><span>Abra o app <strong>e-Título</strong> (Android e iOS) e toque em <strong>Onde votar</strong>.</span></li>
+      <li><b>2</b><span>Ou entre no <strong>Autoatendimento Eleitoral</strong>, no site do TSE (tse.jus.br), aba Consultas, <strong>Onde votar</strong>. Use nome, título ou CPF, data de nascimento e nome da mãe.</span></li>
+      <li><b>3</b><span>Anote o <strong>endereço, a zona e a seção</strong>. A consulta é gratuita e não exige ir ao cartório.</span></li>
+    </ol>
+    <p class="intro">Quem fez transferência temporária só para um turno pode ter endereço diferente do de 4/10. Confira de novo antes de sair de casa. Votação: domingo, 25/10, das 8h às 17h.</p>
+    <p class="src22">Fontes: <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/consulte-com-antecedencia-o-local-onde-voce-ira-votar-no-2o-turno">TSE, consulta antecipada</a> · <a href="https://jurinews.com.br/justica-eleitoral/tse-altera-mais-de-4-mil-locais-de-votacao-para-o-2o-turno-das-eleicoes-deste-domingo-25">Jurinews, balanço do TSE até 16/10</a> · <a href="https://www.seudinheiro.com/2026/politica/seu-local-de-votacao-mudou-tse-altera-mais-de-4-mil-secoes-para-o-2o-turno-veja-como-consultar-eleicoes-2026-lefp/">Seu Dinheiro</a></p>
+  </section>
 
   <section class="block rv" id="conta" aria-labelledby="h-conta">
     <h2 id="h-conta">A conta que ninguém faz</h2>
