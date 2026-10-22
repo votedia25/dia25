@@ -362,19 +362,28 @@ html{scroll-padding-bottom:70px}
 .vivo-lista .v-s{font-size:.82rem;margin:0}
 .vivo-lista .v-s a{color:inherit}
 
-/* Placar da checagem */
-.placar{display:flex;flex-direction:column;gap:14px;border:4px solid var(--ink);padding:14px}
-.pl-row{display:grid;grid-template-columns:4.2rem 1fr;gap:12px;align-items:center}
-.pl-n{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:4.6rem;line-height:.85;color:var(--red)}
-.pl-meio{display:flex;flex-direction:column;gap:6px}
-.pl-nome{font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.85rem}
-.pl-q{display:flex;flex-wrap:wrap;gap:4px}
-.pl-q i{width:16px;height:16px;border:2px solid var(--ink);background:transparent}
-.pl-q i.r{background:var(--red);border-color:var(--red)}
-.pl-q i.g{background:var(--ink)}
-.pl-leg{font-size:.8rem}
+/* Placar da checagem: torres de cubos 3D (uma fala = um cubo) */
+.placar{border:4px solid var(--ink);padding:14px 12px;display:flex;flex-direction:column;gap:12px;background:var(--tint)}
+.pl-grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pl-col{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pl-nome{font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.78rem}
+.pl-n{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:4.6rem;line-height:.9;color:var(--red);text-shadow:3px 3px 0 var(--ink)}
+.pl-sub{font-size:.78rem;font-weight:700}
+.pl-palco{height:140px;display:flex;align-items:flex-end;justify-content:center;margin-top:6px;border-bottom:4px solid var(--ink)}
+.pl-svg{height:100%;width:auto;max-width:100%;overflow:visible}
+.cb polygon{stroke:var(--ink);stroke-width:.9;stroke-linejoin:miter}
+.cb.r .le{fill:var(--red)} .cb.r .di{fill:var(--vinho)} .cb.r .to{fill:var(--tint)}
+.cb.g .le{fill:var(--ink)} .cb.g .di{fill:var(--muted)} .cb.g .to{fill:var(--hair)}
+.cb.o .le{fill:var(--paper)} .cb.o .di{fill:var(--hair)} .cb.o .to{fill:var(--paper)}
+.cb.novo{animation:cbIn .5s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes cbIn{from{transform:translateY(-40px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.cb.novo{animation:none}}
+.pl-leg{font-size:.78rem;margin-top:6px}
+.pl-chave{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.74rem;font-weight:700;margin:0}
+.pl-chave .k::before{content:"";display:inline-block;width:11px;height:11px;margin-right:5px;border:2px solid var(--ink);vertical-align:-1px}
+.pl-chave .k.r::before{background:var(--red)} .pl-chave .k.g::before{background:var(--ink)} .pl-chave .k.o::before{background:var(--paper)}
 .pl-nota{font-size:.78rem;margin:0}
-
+@media (max-width:360px){.pl-n{font-size:3.8rem}}
 /* Colunas: Flávio | Lula */
 .vivo-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
 .vcol h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:1.5rem;text-transform:uppercase;margin:0 0 8px;padding-bottom:6px;border-bottom:4px solid var(--ink)}
@@ -1341,27 +1350,59 @@ window.DIA25 = {
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   var RUIM = /falso|distorc|engan|impreci|exager|insustent|incorret|contest|sem sustent|desinform/i;
   var BOM = /verdad|correto|confirm|de fato/i;
+  var antes = { f: 0, l: 0 };
+  /* Torre de cubos isométricos em SVG: base 2x2, cresce para cima. Uma fala = um cubo. */
+  var NS = "http://www.w3.org/2000/svg";
+  function sv(t, at) { var e = document.createElementNS(NS, t); for (var k in at) e.setAttribute(k, at[k]); return e; }
+  function torre(tipos, desde) {
+    var w = 15, h = 15, cubos = [];
+    tipos.forEach(function (t, n) {
+      var cam = Math.floor(n / 4), r = n % 4, x = r % 2, y = Math.floor(r / 2);
+      cubos.push({ t: t, n: n, cam: cam, x: x, y: y, sx: (x - y) * w, sy: (x + y) * w / 2 - cam * h });
+    });
+    var camadas = Math.max(1, Math.ceil(tipos.length / 4));
+    var W = 4 * w + 8, H = camadas * h + 2 * w + 8;
+    var s = sv("svg", { viewBox: "0 0 " + W + " " + H, "class": "pl-svg", role: "presentation" });
+    cubos.sort(function (p, q) { return p.cam - q.cam || (p.x + p.y) - (q.x + q.y); });
+    cubos.forEach(function (c) {
+      var ox = W / 2 + c.sx, oy = H - 4 - 2 * w - h + c.sy; /* base da torre encostada embaixo */
+      var T = [ox, oy], R = [ox + w, oy + w / 2], B = [ox, oy + w], L = [ox - w, oy + w / 2];
+      function d(p) { return p[0] + "," + p[1]; }
+      var g = sv("g", { "class": "cb " + c.t + (c.n >= desde ? " novo" : "") });
+      g.appendChild(sv("polygon", { "class": "le", points: [d(L), d(B), d([B[0], B[1] + h]), d([L[0], L[1] + h])].join(" ") }));
+      g.appendChild(sv("polygon", { "class": "di", points: [d(B), d(R), d([R[0], R[1] + h]), d([B[0], B[1] + h])].join(" ") }));
+      g.appendChild(sv("polygon", { "class": "to", points: [d(T), d(R), d(B), d(L)].join(" ") }));
+      s.appendChild(g);
+    });
+    return s;
+  }
   function placar(itens) {
     var box = document.getElementById("vivoPlacar"); if (!box) return;
     box.textContent = "";
-    [["Flávio Bolsonaro", /fl[aá]vio/i], ["Lula", /lula/i]].forEach(function (c) {
-      var meus = itens.filter(function (it) { return c[1].test(it.quem); });
-      var ruins = meus.filter(function (it) { return RUIM.test(it.veredito) && !BOM.test(it.veredito); }).length;
-      var bons = meus.filter(function (it) { return BOM.test(it.veredito) && !RUIM.test(it.veredito); }).length;
-      var row = el("div", "pl-row");
-      var n = el("b", "pl-n", String(ruins)); row.appendChild(n);
-      var meio = el("div", "pl-meio");
-      meio.appendChild(el("span", "pl-nome", c[0]));
-      var q = el("span", "pl-q"); q.setAttribute("aria-hidden", "true");
-      meus.forEach(function (it) {
+    var grade = el("div", "pl-grade");
+    [["f", "Flávio Bolsonaro", /fl[aá]vio/i], ["l", "Lula", /lula/i]].forEach(function (c) {
+      var meus = itens.filter(function (it) { return c[2].test(it.quem); });
+      var tipos = meus.map(function (it) {
         var r = RUIM.test(it.veredito) && !BOM.test(it.veredito), g = BOM.test(it.veredito) && !RUIM.test(it.veredito);
-        q.appendChild(el("i", r ? "r" : (g ? "g" : "o")));
+        return r ? "r" : (g ? "g" : "o");
       });
-      meio.appendChild(q);
-      meio.appendChild(el("span", "pl-leg", ruins + (ruins === 1 ? " falsa ou enganosa" : " falsas ou enganosas") + " · " + bons + (bons === 1 ? " verdadeira" : " verdadeiras") + " · " + meus.length + (meus.length === 1 ? " checada" : " checadas")));
-      row.appendChild(meio);
-      box.appendChild(row);
+      var ruins = tipos.filter(function (t) { return t === "r"; }).length;
+      var bons = tipos.filter(function (t) { return t === "g"; }).length;
+      var col = el("div", "pl-col");
+      col.appendChild(el("span", "pl-nome", c[1]));
+      col.appendChild(el("b", "pl-n", String(ruins)));
+      col.appendChild(el("span", "pl-sub", ruins === 1 ? "falsa ou enganosa" : "falsas ou enganosas"));
+      var palco = el("div", "pl-palco"); palco.setAttribute("aria-hidden", "true");
+      palco.appendChild(torre(tipos, antes[c[0]]));
+      col.appendChild(palco);
+      col.appendChild(el("span", "pl-leg", bons + (bons === 1 ? " verdadeira" : " verdadeiras") + " · " + meus.length + (meus.length === 1 ? " checada" : " checadas")));
+      antes[c[0]] = tipos.length;
+      grade.appendChild(col);
     });
+    box.appendChild(grade);
+    var lg = el("p", "pl-chave");
+    lg.appendChild(el("span", "k r", "falsa ou enganosa")); lg.appendChild(el("span", "k g", "verdadeira")); lg.appendChild(el("span", "k o", "sem selo"));
+    box.appendChild(lg);
     box.appendChild(el("p", "pl-nota", "Conta só as falas que agências checaram nesta noite. Não é o total do que cada um disse."));
   }
   function render(j) {
