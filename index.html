@@ -362,6 +362,19 @@ html{scroll-padding-bottom:70px}
 .vivo-lista .v-s{font-size:.82rem;margin:0}
 .vivo-lista .v-s a{color:inherit}
 
+/* Placar da checagem */
+.placar{display:flex;flex-direction:column;gap:14px;border:4px solid var(--ink);padding:14px}
+.pl-row{display:grid;grid-template-columns:4.2rem 1fr;gap:12px;align-items:center}
+.pl-n{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:4.6rem;line-height:.85;color:var(--red)}
+.pl-meio{display:flex;flex-direction:column;gap:6px}
+.pl-nome{font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.85rem}
+.pl-q{display:flex;flex-wrap:wrap;gap:4px}
+.pl-q i{width:16px;height:16px;border:2px solid var(--ink);background:transparent}
+.pl-q i.r{background:var(--red);border-color:var(--red)}
+.pl-q i.g{background:var(--ink)}
+.pl-leg{font-size:.8rem}
+.pl-nota{font-size:.78rem;margin:0}
+
 </style>
 </head>
 <body>
@@ -430,6 +443,7 @@ html{scroll-padding-bottom:70px}
   <section class="block aovivo" id="ao-vivo" aria-labelledby="h-vivo" hidden>
     <h2 id="h-vivo">Checagem ao vivo: debate da Globo</h2>
     <p class="intro" id="vivoInfo">Atualiza sozinho a cada 30 segundos. Só entram falas já classificadas por agências de checagem, com link para a checagem. Quando não há classificação publicada, a fala não aparece aqui.</p>
+    <div class="placar" id="vivoPlacar" aria-live="polite"></div>
     <p class="vivo-ts" id="vivoTs" aria-live="polite"></p>
     <ol class="vivo-lista" id="vivoLista"></ol>
   </section>
@@ -1305,6 +1319,31 @@ window.DIA25 = {
   var lista = document.getElementById("vivoLista"), ts = document.getElementById("vivoTs");
   var ultimo = "";
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  var RUIM = /falso|distorc|engan|impreci|exager|insustent|incorret|contest|sem sustent|desinform/i;
+  var BOM = /verdad|correto|confirm|de fato/i;
+  function placar(itens) {
+    var box = document.getElementById("vivoPlacar"); if (!box) return;
+    box.textContent = "";
+    [["Flávio Bolsonaro", /fl[aá]vio/i], ["Lula", /lula/i]].forEach(function (c) {
+      var meus = itens.filter(function (it) { return c[1].test(it.quem); });
+      var ruins = meus.filter(function (it) { return RUIM.test(it.veredito) && !BOM.test(it.veredito); }).length;
+      var bons = meus.filter(function (it) { return BOM.test(it.veredito) && !RUIM.test(it.veredito); }).length;
+      var row = el("div", "pl-row");
+      var n = el("b", "pl-n", String(ruins)); row.appendChild(n);
+      var meio = el("div", "pl-meio");
+      meio.appendChild(el("span", "pl-nome", c[0]));
+      var q = el("span", "pl-q"); q.setAttribute("aria-hidden", "true");
+      meus.forEach(function (it) {
+        var r = RUIM.test(it.veredito) && !BOM.test(it.veredito), g = BOM.test(it.veredito) && !RUIM.test(it.veredito);
+        q.appendChild(el("i", r ? "r" : (g ? "g" : "o")));
+      });
+      meio.appendChild(q);
+      meio.appendChild(el("span", "pl-leg", ruins + (ruins === 1 ? " falsa ou enganosa" : " falsas ou enganosas") + " · " + bons + (bons === 1 ? " verdadeira" : " verdadeiras") + " · " + meus.length + (meus.length === 1 ? " checada" : " checadas")));
+      row.appendChild(meio);
+      box.appendChild(row);
+    });
+    box.appendChild(el("p", "pl-nota", "Conta só as falas que agências checaram nesta noite. Não é o total do que cada um disse."));
+  }
   function render(j) {
     if (!j || !j.ativo) { sec.hidden = true; return; }
     var chave = JSON.stringify(j);
@@ -1313,8 +1352,9 @@ window.DIA25 = {
     ultimo = chave;
     var h = document.getElementById("h-vivo"); if (j.titulo) h.textContent = j.titulo;
     ts.textContent = j.atualizado ? "Atualizado às " + j.atualizado : "";
+    placar(j.itens || []);
     lista.textContent = "";
-    (j.itens || []).forEach(function (it) {
+    (j.itens || []).slice().reverse().forEach(function (it) {
       var li = el("li");
       var cab = el("p", "v-h"); cab.appendChild(el("span", "v-ver" + (/verdad|correto|fato/i.test(it.veredito) ? " ok" : ""), it.veredito));
       cab.appendChild(document.createTextNode((it.hora ? it.hora + " · " : "") + it.quem));
