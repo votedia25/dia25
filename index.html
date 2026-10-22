@@ -348,6 +348,20 @@ html{scroll-padding-bottom:70px}
 .passos li{display:grid;grid-template-columns:2.2rem 1fr;gap:12px;align-items:start}
 .passos b{background:var(--red);color:#fff;font-weight:900;text-align:center;line-height:2.2rem}
 
+/* Checagem ao vivo */
+.aovivo[hidden]{display:none}
+.aovivo{border-top-width:8px}
+.vivo-ts{font-size:.85rem;font-weight:800;margin:0}
+.vivo-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.vivo-lista li{border-top:1px solid var(--hair);padding:14px 0;display:flex;flex-direction:column;gap:4px}
+.vivo-lista .v-h{font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.vivo-lista .v-ver{display:inline-block;background:var(--red);color:#fff;font-weight:900;padding:1px 8px;margin-right:8px}
+.vivo-lista .v-ver.ok{background:var(--ink)}
+.vivo-lista .v-d{font-weight:800;margin:0}
+.vivo-lista .v-f{margin:0}
+.vivo-lista .v-s{font-size:.82rem;margin:0}
+.vivo-lista .v-s a{color:inherit}
+
 </style>
 </head>
 <body>
@@ -412,6 +426,13 @@ html{scroll-padding-bottom:70px}
       <a class="jb sim" href="#sim">Por que <b>sim</b> Lula</a>
     </nav>
   </header>
+
+  <section class="block aovivo" id="ao-vivo" aria-labelledby="h-vivo" hidden>
+    <h2 id="h-vivo">Checagem ao vivo: debate da Globo</h2>
+    <p class="intro" id="vivoInfo">Atualiza sozinho a cada 30 segundos. Só entram falas já classificadas por agências de checagem, com link para a checagem. Quando não há classificação publicada, a fala não aparece aqui.</p>
+    <p class="vivo-ts" id="vivoTs" aria-live="polite"></p>
+    <ol class="vivo-lista" id="vivoLista"></ol>
+  </section>
 
   <section class="block rv aviso-local" id="local" aria-labelledby="h-local">
     <h2 id="h-local">Seu local de votação pode ter mudado</h2>
@@ -1274,6 +1295,44 @@ window.DIA25 = {
     else setTimeout(carregarUrna, 400);
   }
   if (document.readyState === "complete") quando(); else window.addEventListener("load", quando);
+})();
+
+
+/* Checagem ao vivo: lê live.json (publicado junto do app) e atualiza a cada 30 s. Usa textContent, nunca innerHTML. */
+(function () {
+  var sec = document.getElementById("ao-vivo");
+  if (!sec || !window.fetch) return;
+  var lista = document.getElementById("vivoLista"), ts = document.getElementById("vivoTs");
+  var ultimo = "";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function render(j) {
+    if (!j || !j.ativo) { sec.hidden = true; return; }
+    var chave = JSON.stringify(j);
+    sec.hidden = false;
+    if (chave === ultimo) return;
+    ultimo = chave;
+    var h = document.getElementById("h-vivo"); if (j.titulo) h.textContent = j.titulo;
+    ts.textContent = j.atualizado ? "Atualizado às " + j.atualizado : "";
+    lista.textContent = "";
+    (j.itens || []).forEach(function (it) {
+      var li = el("li");
+      var cab = el("p", "v-h"); cab.appendChild(el("span", "v-ver" + (/verdad|correto|fato/i.test(it.veredito) ? " ok" : ""), it.veredito));
+      cab.appendChild(document.createTextNode((it.hora ? it.hora + " · " : "") + it.quem));
+      li.appendChild(cab);
+      li.appendChild(el("p", "v-d", "Disse: " + it.disse));
+      li.appendChild(el("p", "v-f", it.fato));
+      if (it.fonte && /^https:\/\//.test(it.fonte.url)) {
+        var p = el("p", "v-s", "Fonte: "), a = el("a", null, it.fonte.nome); a.href = it.fonte.url; a.rel = "noopener"; p.appendChild(a); li.appendChild(p);
+      }
+      lista.appendChild(li);
+    });
+  }
+  function buscar() {
+    if (document.hidden) return;
+    fetch("live.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(render).catch(function () {});
+  }
+  buscar(); setInterval(buscar, 30000);
+  document.addEventListener("visibilitychange", buscar);
 })();
 </script>
 <script>/* Ilustrações do app: pictogramas de tema e a fila de eleitores.
