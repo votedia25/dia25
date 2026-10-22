@@ -1928,7 +1928,32 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
   function get(u) { return fetch(u + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
 
   /* Ponto de ligação com o TSE: preencher quando o endereço dos resultados de 2026 estiver confirmado. */
-  function lerTSE() { return Promise.reject(new Error("tse-nao-configurado")); }
+  /* Leitura direta do TSE (2º turno presidente: eleição 6258, ciclo ele2026; o teste no celular confirmou que o navegador lê o config). */
+  var UFS = ["ac","al","ap","am","ba","ce","df","es","go","ma","mt","ms","mg","pa","pb","pr","pe","pi","rj","rn","rs","ro","rr","sc","sp","se","to"];
+  function num(s) { return parseFloat(String(s == null ? "" : s).replace(/\./g, "").replace(",", ".")) || 0; }
+  function semAcento(s) { return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase(); }
+  function lerUF(uf) {
+    return fetch("https://resultados.tse.jus.br/oficial/ele2026/6258/dados-simplificados/" + uf + "/" + uf + "-c0001-e006258-r.json?t=" + Math.floor(Date.now() / 30000), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (j) {
+        var lula = 0, flavio = 0, cands = [];
+        (j.carg || []).forEach(function (c) { (c.agr || []).forEach(function (g) { (g.cand || []).forEach(function (k) { cands.push(k); }); }); });
+        if (!cands.length && j.cand) cands = j.cand;
+        cands.forEach(function (k) {
+          var n = semAcento(k.nm), v = num(k.vap);
+          if (n.indexOf("LULA") > -1) lula = v; else if (n.indexOf("FLAVIO") > -1) flavio = v;
+        });
+        return { uf: uf.toUpperCase(), apurado: num(j.pst), lula: lula, flavio: flavio };
+      });
+  }
+  function lerTSE() {
+    return Promise.all(UFS.map(lerUF)).then(function (estados) {
+      var com = estados.filter(function (e) { return e.apurado > 0; });
+      if (!com.length) throw new Error("sem-dados");
+      var hora = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" });
+      return { atualizado: hora, estados: estados, fonte: "tse" };
+    });
+  }
 
   function carregar() {
     var dados = DEMO ? get("apuracao-exemplo.json") : lerTSE().catch(function () { return get("apuracao.json"); });
