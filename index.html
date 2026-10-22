@@ -489,6 +489,12 @@ html{scroll-padding-bottom:70px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tabs{background:#B10F1B;border-top-color:#FF4B4B}:root:not([data-theme="light"]) .tabs a{color:#FFD9DB}:root:not([data-theme="light"]) .tabs a.on{color:#fff}:root:not([data-theme="light"]) .tabs a.on i{background:#fff}:root:not([data-theme="light"]) .tabs a:active{background:#8E0C16}}
 :root[data-theme="dark"] .tabs{background:#B10F1B;border-top-color:#FF4B4B}:root[data-theme="dark"] .tabs a{color:#FFD9DB}:root[data-theme="dark"] .tabs a.on{color:#fff}:root[data-theme="dark"] .tabs a.on i{background:#fff}:root[data-theme="dark"] .tabs a:active{background:#8E0C16}
 
+/* Zoom do mapa */
+.m3d-zoom{position:absolute;right:0;top:0;display:flex;flex-direction:column;gap:6px;z-index:3}
+.m3d-zoom button{width:44px;height:44px;border:3px solid var(--ink);background:var(--paper);color:var(--ink);font:900 1.35rem/1 "Public Sans",sans-serif;cursor:pointer;padding:0}
+.m3d-zoom button:last-child{font-size:.95rem}
+.m3d-zoom button:active{background:var(--red);color:#fff}
+
 </style>
 </head>
 <body>
@@ -1715,7 +1721,13 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
       host.classList.add("m3d"); host.appendChild(cv);
       var labs = document.createElement("div"); labs.className = "m3d-labs"; labs.setAttribute("aria-hidden", "true"); host.appendChild(labs);
       var call = document.createElement("div"); call.className = "m3d-call"; call.hidden = true; call.setAttribute("aria-hidden", "true"); host.appendChild(call);
-      var dica = document.createElement("p"); dica.className = "m3d-dica"; dica.textContent = "Arraste para girar · toque num estado"; dica.setAttribute("aria-hidden", "true"); host.appendChild(dica);
+      var dica = document.createElement("p"); dica.className = "m3d-dica"; dica.textContent = "Arraste: girar · Pinça ou +/−: zoom · Toque: estado"; dica.setAttribute("aria-hidden", "true"); host.appendChild(dica);
+
+      var zb = document.createElement("div"); zb.className = "m3d-zoom";
+      [["+", "Aproximar"], ["−", "Afastar"], ["1×", "Voltar ao tamanho inicial"]].forEach(function (x, i) {
+        var b = document.createElement("button"); b.type = "button"; b.textContent = x[0]; b.setAttribute("aria-label", x[1]); b.dataset.z = i; zb.appendChild(b);
+      });
+      host.appendChild(zb);
 
       var scene = new T.Scene(), cam = new T.PerspectiveCamera(30, 1, 0.1, 100);
       scene.add(new T.AmbientLight(0xffffff, 0.8));
@@ -1738,10 +1750,10 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
         });
         var lab = document.createElement("span"); lab.textContent = id; lab.hidden = (maxx - minx) < 1.15;
         labs.appendChild(lab);
-        est[id] = { mesh: mesh, g: g, topM: topM, sideM: sideM, cur: altura(0), alvo: altura(0), bx: (minx + maxx) / 2, bz: (minz + maxz) / 2, lab: lab, dado: null, lider: "n" };
+        est[id] = { mesh: mesh, g: g, topM: topM, sideM: sideM, cur: altura(0), alvo: altura(0), bx: (minx + maxx) / 2, bz: (minz + maxz) / 2, lab: lab, larg: maxx - minx, dado: null, lider: "n" };
       });
 
-      var yaw = -0.3, yawA = -0.3, pit = 0.95, pitA = 0.95, R = 20, sel = null, t0 = performance.now(), arrastando = false, vis = false, raf = 0, w = 300, h = 300;
+      var yaw = -0.3, yawA = -0.3, pit = 0.95, pitA = 0.95, R = 20, Z = 1, tx = 0, tz = 0, sel = null, t0 = performance.now(), arrastando = false, vis = false, raf = 0, w = 300, h = 300;
       var ray = new T.Raycaster(), v = new T.Vector2();
 
       function cores(l) {
@@ -1759,14 +1771,45 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
       }
       function metas() { Object.keys(est).forEach(function (id) { var e = est[id]; e.alvo = (e.dado ? altura(e.dado.ap) : altura(0)) + (id === sel ? 0.4 : 0); }); }
       function pos() {
-        cam.position.set(R * Math.sin(yaw) * Math.cos(pit), 0.4 + R * Math.sin(pit), R * Math.cos(yaw) * Math.cos(pit));
-        cam.lookAt(0, 0.3, 0.2);
+        var Rz = R / Z;
+        cam.position.set(tx + Rz * Math.sin(yaw) * Math.cos(pit), 0.4 + Rz * Math.sin(pit), tz + Rz * Math.cos(yaw) * Math.cos(pit));
+        cam.lookAt(tx, 0.3, tz + 0.2);
       }
       function resize() {
         w = host.clientWidth || 300; h = host.clientHeight || 300;
         r.setPixelRatio(Math.min(window.devicePixelRatio || 1, FRACO ? 1.25 : 2)); r.setSize(w, h, false);
         cam.aspect = w / h; R = Math.max(22, 8.3 / (0.268 * Math.min(cam.aspect, 1.3))); cam.updateProjectionMatrix(); acordar();
       }
+      var plano = new T.Plane(new T.Vector3(0, 1, 0), -0.3), pt = new T.Vector3();
+      function chao(cx, cy) {
+        var rc = cv.getBoundingClientRect();
+        v.set(((cx - rc.left) / rc.width) * 2 - 1, -((cy - rc.top) / rc.height) * 2 + 1);
+        ray.setFromCamera(v, cam);
+        return ray.ray.intersectPlane(plano, pt) ? pt.clone() : null;
+      }
+      function limitar() { var L = 7 * (1 - 1 / Z); tx = Math.max(-L, Math.min(L, tx)); tz = Math.max(-L, Math.min(L, tz)); if (Z <= 1.001) { tx = 0; tz = 0; } }
+      function rotulos() { Object.keys(est).forEach(function (id) { est[id].lab.hidden = est[id].larg * Z < 1.15; }); }
+      function zoomEm(f, cx, cy) {
+        var rc = cv.getBoundingClientRect();
+        if (cx == null) { cx = rc.left + rc.width / 2; cy = rc.top + rc.height / 2; }
+        pos(); cam.updateMatrixWorld(); var a = chao(cx, cy);
+        Z = Math.max(1, Math.min(5, Z * f));
+        pos(); cam.updateMatrixWorld(); var b = chao(cx, cy);
+        if (a && b) { tx += a.x - b.x; tz += a.z - b.z; }
+        limitar(); rotulos(); acordar();
+      }
+      function panDe(x0, y0, x1, y1) {
+        pos(); cam.updateMatrixWorld(); var a = chao(x0, y0), b = chao(x1, y1);
+        if (a && b) { tx += a.x - b.x; tz += a.z - b.z; limitar(); }
+      }
+      zb.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        var i = +b.dataset.z;
+        if (i === 0) zoomEm(1.6); else if (i === 1) zoomEm(1 / 1.6); else { Z = 1; tx = 0; tz = 0; rotulos(); acordar(); }
+      });
+      cv.addEventListener("wheel", function (e) { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); zoomEm(Math.exp(-e.deltaY * 0.01), e.clientX, e.clientY); }, { passive: false });
+      cv.addEventListener("dblclick", function (e) { zoomEm(Z >= 3 ? 1 / Z : 2, e.clientX, e.clientY); });
+
       function projetar(x, y, z) { var p = new T.Vector3(x, y, z).project(cam); return [(p.x * 0.5 + 0.5) * w, (-p.y * 0.5 + 0.5) * h]; }
       function frame(now) {
         var mexe = false;
@@ -1786,7 +1829,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
         });
         if (sel && est[sel]) {
           var e = est[sel], p = projetar(e.bx, e.cur, e.bz);
-          call.style.transform = "translate(" + Math.max(70, Math.min(w - 70, p[0])).toFixed(1) + "px," + p[1].toFixed(1) + "px) translate(-50%,-125%)";
+          call.style.transform = "translate(" + Math.max(70, Math.min(w - 70, p[0])).toFixed(1) + "px," + Math.max(62, p[1]).toFixed(1) + "px) translate(-50%,-125%)";
         }
         return mexe || gira;
       }
@@ -1811,19 +1854,27 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
         },
         selecionar: function (uf) { sel = uf && est[uf] ? uf : null; metas(); pintarCores(); mostrar(); acordar(); },
         recolorir: function () { pintarCores(); acordar(); },
-        destruir: function () { cancelAnimationFrame(raf); try { r.dispose(); r.forceContextLoss(); } catch (e) {} if (cv.parentNode) cv.parentNode.removeChild(cv); labs.remove(); call.remove(); dica.remove(); host.classList.remove("m3d"); }
+        destruir: function () { cancelAnimationFrame(raf); try { r.dispose(); r.forceContextLoss(); } catch (e) {} if (cv.parentNode) cv.parentNode.removeChild(cv); labs.remove(); zb.remove(); call.remove(); dica.remove(); host.classList.remove("m3d"); }
       };
 
       /* arrastar para girar; toque curto escolhe o estado */
-      var d0 = null;
-      cv.addEventListener("pointerdown", function (e) { d0 = { x: e.clientX, y: e.clientY, a: yawA, p: pitA, m: false, t: performance.now() }; try { cv.setPointerCapture(e.pointerId); } catch (x) {} });
+      var d0 = null, dedos = {}, pinca = null;
+      function dois() { var k = Object.keys(dedos); if (k.length < 2) return null; var a = dedos[k[0]], b = dedos[k[1]]; return { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; }
+      cv.addEventListener("pointerdown", function (e) {
+        dedos[e.pointerId] = { x: e.clientX, y: e.clientY };
+        if (Object.keys(dedos).length >= 2) { d0 = null; arrastando = false; pinca = dois(); try { cv.setPointerCapture(e.pointerId); } catch (x) {} return; }
+        d0 = { x: e.clientX, y: e.clientY, a: yawA, p: pitA, m: false, t: performance.now() }; try { cv.setPointerCapture(e.pointerId); } catch (x) {} });
       cv.addEventListener("pointermove", function (e) {
+        if (dedos[e.pointerId]) { dedos[e.pointerId].x = e.clientX; dedos[e.pointerId].y = e.clientY; }
+        if (pinca) { var n = dois(); if (n) { panDe(pinca.x, pinca.y, n.x, n.y); zoomEm(n.d / pinca.d, n.x, n.y); pinca = n; } return; }
         if (!d0) return;
         var dx = e.clientX - d0.x, dy = e.clientY - d0.y;
         if (Math.abs(dx) > 6 || Math.abs(dy) > 6) { d0.m = true; arrastando = true; cv.style.cursor = "grabbing"; }
         if (d0.m) { yawA = d0.a - dx / w * 4; if (e.pointerType === "mouse") pitA = Math.max(0.35, Math.min(1.4, d0.p + dy / h * 2.2)); acordar(); }
       });
       function fim(e) {
+        delete dedos[e.pointerId];
+        if (pinca) { if (Object.keys(dedos).length < 2) pinca = null; d0 = null; arrastando = false; return; }
         if (!d0) return;
         var toque = !d0.m && performance.now() - d0.t < 500;
         d0 = null; arrastando = false; cv.style.cursor = "grab"; acordar();
@@ -1838,7 +1889,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
           if (opt && opt.onSelecionar) opt.onSelecionar(novo);
         }
       }
-      cv.addEventListener("pointerup", fim); cv.addEventListener("pointercancel", function () { d0 = null; arrastando = false; });
+      cv.addEventListener("pointerup", fim); cv.addEventListener("pointercancel", function (e) { delete dedos[e.pointerId]; pinca = null; d0 = null; arrastando = false; });
       cv.addEventListener("webglcontextlost", function (e) { e.preventDefault(); });
       if (window.IntersectionObserver) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) { t0 = performance.now(); acordar(); } }, { rootMargin: "80px" }).observe(host); else vis = true;
       if (window.ResizeObserver) new ResizeObserver(resize).observe(host);
