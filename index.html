@@ -558,6 +558,17 @@ html[data-fase="debate"] body,html[data-fase="espera"] body,html[data-fase="apur
 .fase-c{display:inline-block;margin:0;background:var(--ink);color:var(--paper);font-weight:800;padding:6px 10px}
 .fase-c:empty{display:none}
 
+/* Mapa: regiões, tela cheia e tamanho do domingo */
+.m3d-reg{display:none;position:absolute;left:0;top:0;flex-wrap:wrap;gap:4px;max-width:calc(100% - 56px);z-index:3}
+html[data-fase="apuracao"] .m3d-reg,.m3d.full .m3d-reg{display:flex}
+.m3d-reg button{border:2px solid var(--ink);background:var(--paper);color:var(--ink);font:800 .72rem/1 "Public Sans",sans-serif;padding:8px 9px;cursor:pointer}
+.m3d-reg button:active{background:var(--red);color:#fff}
+html[data-fase="apuracao"] .ap-mapa.m3d{max-width:none;aspect-ratio:1/1.12}
+.ap-mapa.m3d.full{position:fixed;inset:0;z-index:200;max-width:none;width:100vw;height:100dvh;aspect-ratio:auto;background:var(--paper);padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.m3d.full .m3d-reg{top:max(8px,env(safe-area-inset-top));left:8px}
+.m3d.full .m3d-zoom{top:max(8px,env(safe-area-inset-top));right:8px}
+html.m3d-trava,html.m3d-trava body{overflow:hidden}
+
 </style>
 </head>
 <body>
@@ -1787,10 +1798,14 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
       var dica = document.createElement("p"); dica.className = "m3d-dica"; dica.textContent = "Arraste: girar · Pinça ou +/−: zoom · Toque: estado"; dica.setAttribute("aria-hidden", "true"); host.appendChild(dica);
 
       var zb = document.createElement("div"); zb.className = "m3d-zoom";
-      [["+", "Aproximar"], ["−", "Afastar"], ["1×", "Voltar ao tamanho inicial"]].forEach(function (x, i) {
+      [["+", "Aproximar"], ["−", "Afastar"], ["1×", "Voltar ao tamanho inicial"], ["⤢", "Expandir o mapa em tela cheia"]].forEach(function (x, i) {
         var b = document.createElement("button"); b.type = "button"; b.textContent = x[0]; b.setAttribute("aria-label", x[1]); b.dataset.z = i; zb.appendChild(b);
       });
       host.appendChild(zb);
+      var REG = [["Brasil", []], ["Norte", ["AC","AM","AP","PA","RO","RR","TO"]], ["Nordeste", ["AL","BA","CE","MA","PB","PE","PI","RN","SE"]], ["Centro-Oeste", ["DF","GO","MS","MT"]], ["Sudeste", ["ES","MG","RJ","SP"]], ["Sul", ["PR","RS","SC"]]];
+      var rg = document.createElement("div"); rg.className = "m3d-reg"; rg.setAttribute("role", "group"); rg.setAttribute("aria-label", "Ir para uma região");
+      REG.forEach(function (x, i) { var b = document.createElement("button"); b.type = "button"; b.textContent = x[0]; b.dataset.r = i; rg.appendChild(b); });
+      host.appendChild(rg);
 
       var scene = new T.Scene(), cam = new T.PerspectiveCamera(30, 1, 0.1, 100);
       scene.add(new T.AmbientLight(0xffffff, 0.8));
@@ -1816,7 +1831,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
         est[id] = { mesh: mesh, g: g, topM: topM, sideM: sideM, cur: altura(0), alvo: altura(0), bx: (minx + maxx) / 2, bz: (minz + maxz) / 2, lab: lab, larg: maxx - minx, dado: null, lider: "n" };
       });
 
-      var yaw = -0.3, yawA = -0.3, pit = 0.95, pitA = 0.95, R = 20, Z = 1, tx = 0, tz = 0, sel = null, t0 = performance.now(), arrastando = false, vis = false, raf = 0, w = 300, h = 300;
+      var yaw = -0.3, yawA = -0.3, pit = 0.95, pitA = 0.95, R = 20, Z = 1, tx = 0, tz = 0, voo = null, sel = null, t0 = performance.now(), arrastando = false, vis = false, raf = 0, w = 300, h = 300;
       var ray = new T.Raycaster(), v = new T.Vector2();
 
       function cores(l) {
@@ -1841,7 +1856,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
       function resize() {
         w = host.clientWidth || 300; h = host.clientHeight || 300;
         r.setPixelRatio(Math.min(window.devicePixelRatio || 1, FRACO ? 1.25 : 2)); r.setSize(w, h, false);
-        cam.aspect = w / h; R = Math.max(22, 8.3 / (0.268 * Math.min(cam.aspect, 1.3))); cam.updateProjectionMatrix(); acordar();
+        cam.aspect = w / h; var ju = (host.classList.contains("full") || document.documentElement.getAttribute("data-fase") === "apuracao") ? 0.82 : 1; R = ju * Math.max(22, 8.3 / (0.268 * Math.min(cam.aspect, 1.3))); cam.updateProjectionMatrix(); acordar();
       }
       var plano = new T.Plane(new T.Vector3(0, 1, 0), -0.3), pt = new T.Vector3();
       function chao(cx, cy) {
@@ -1853,6 +1868,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
       function limitar() { var L = 7 * (1 - 1 / Z); tx = Math.max(-L, Math.min(L, tx)); tz = Math.max(-L, Math.min(L, tz)); if (Z <= 1.001) { tx = 0; tz = 0; } }
       function rotulos() { Object.keys(est).forEach(function (id) { est[id].lab.hidden = est[id].larg * Z < 1.15; }); }
       function zoomEm(f, cx, cy) {
+        voo = null;
         var rc = cv.getBoundingClientRect();
         if (cx == null) { cx = rc.left + rc.width / 2; cy = rc.top + rc.height / 2; }
         pos(); cam.updateMatrixWorld(); var a = chao(cx, cy);
@@ -1862,13 +1878,31 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
         limitar(); rotulos(); acordar();
       }
       function panDe(x0, y0, x1, y1) {
+        voo = null;
         pos(); cam.updateMatrixWorld(); var a = chao(x0, y0), b = chao(x1, y1);
         if (a && b) { tx += a.x - b.x; tz += a.z - b.z; limitar(); }
       }
+      function voarPara(z, x, zz) { z = Math.max(1, Math.min(5, z)); var L = 7 * (1 - 1 / z); voo = { z: z, x: Math.max(-L, Math.min(L, x)), zz: Math.max(-L, Math.min(L, zz)) }; if (z <= 1) { voo.x = 0; voo.zz = 0; } acordar(); }
+      function irRegiao(i) {
+        var ufs = REG[i][1]; if (!ufs.length) { voarPara(1, 0, 0); return; }
+        var x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9;
+        ufs.forEach(function (u) { var e = est[u]; if (!e) return; x0 = Math.min(x0, e.bx); x1 = Math.max(x1, e.bx); z0 = Math.min(z0, e.bz); z1 = Math.max(z1, e.bz); });
+        var ext = Math.max(x1 - x0, z1 - z0) + 2.2;
+        voarPara(Math.min(3.4, Math.max(1.6, 8 / ext)), (x0 + x1) / 2, (z0 + z1) / 2 - 0.2);
+      }
+      rg.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) irRegiao(+b.dataset.r); });
+      function expandir(on) {
+        var ja = host.classList.contains("full"); if (on === undefined) on = !ja; if (on === ja) return;
+        host.classList.toggle("full", on); document.documentElement.classList.toggle("m3d-trava", on);
+        zb.querySelector('[data-z="3"]').textContent = on ? "✕" : "⤢"; zb.querySelector('[data-z="3"]').setAttribute("aria-label", on ? "Fechar tela cheia" : "Expandir o mapa em tela cheia");
+        setTimeout(resize, 30); acordar();
+      }
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") expandir(false); });
+      function modoFoco() { return host.classList.contains("full") || document.documentElement.getAttribute("data-fase") === "apuracao"; }
       zb.addEventListener("click", function (e) {
         var b = e.target.closest("button"); if (!b) return;
         var i = +b.dataset.z;
-        if (i === 0) zoomEm(1.6); else if (i === 1) zoomEm(1 / 1.6); else { Z = 1; tx = 0; tz = 0; rotulos(); acordar(); }
+        voo = null; if (i === 0) zoomEm(1.6); else if (i === 1) zoomEm(1 / 1.6); else if (i === 2) voarPara(1, 0, 0); else expandir();
       });
       cv.addEventListener("wheel", function (e) { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); zoomEm(Math.exp(-e.deltaY * 0.01), e.clientX, e.clientY); }, { passive: false });
       cv.addEventListener("dblclick", function (e) { zoomEm(Z >= 3 ? 1 / Z : 2, e.clientX, e.clientY); });
@@ -1881,6 +1915,12 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
           if (Math.abs(d) > 0.002) { e.cur += REDUZ ? d : d * 0.16; mexe = true; } else e.cur = e.alvo;
           e.mesh.scale.z = e.cur; e.g.position.y = e.cur + 0.004;
         });
+        if (voo) {
+          var dz = voo.z - Z, dx2 = voo.x - tx, dz2 = voo.zz - tz;
+          if (Math.abs(dz) < 0.01 && Math.abs(dx2) < 0.01 && Math.abs(dz2) < 0.01) { Z = voo.z; tx = voo.x; tz = voo.zz; voo = null; }
+          else { Z += dz * 0.16; tx += dx2 * 0.16; tz += dz2 * 0.16; }
+          limitar(); rotulos(); mexe = true;
+        }
         var t = now - t0, sway = !REDUZ && !arrastando && t < 5200;
         if (sway) yawA = -0.3 + Math.sin(t / 1300) * 0.28 * Math.max(0, 1 - t / 5200);
         yaw += (yawA - yaw) * 0.14; pit += (pitA - pit) * 0.14;
@@ -1917,7 +1957,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
         },
         selecionar: function (uf) { sel = uf && est[uf] ? uf : null; metas(); pintarCores(); mostrar(); acordar(); },
         recolorir: function () { pintarCores(); acordar(); },
-        destruir: function () { cancelAnimationFrame(raf); try { r.dispose(); r.forceContextLoss(); } catch (e) {} if (cv.parentNode) cv.parentNode.removeChild(cv); labs.remove(); zb.remove(); call.remove(); dica.remove(); host.classList.remove("m3d"); }
+        destruir: function () { cancelAnimationFrame(raf); try { r.dispose(); r.forceContextLoss(); } catch (e) {} if (cv.parentNode) cv.parentNode.removeChild(cv); labs.remove(); zb.remove(); rg.remove(); document.documentElement.classList.remove("m3d-trava"); call.remove(); dica.remove(); host.classList.remove("m3d"); }
       };
 
       /* arrastar para girar; toque curto escolhe o estado */
@@ -1949,6 +1989,7 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
           var uf = hit ? hit.object.userData.uf : null;
           var novo = uf === sel ? null : uf;
           api.selecionar(novo);
+          if (modoFoco()) { if (novo && est[novo]) voarPara(Math.max(Z, 2.4), est[novo].bx, est[novo].bz - 0.2); else if (!novo) voarPara(Math.min(Z, 1.6), tx, tz); }
           if (opt && opt.onSelecionar) opt.onSelecionar(novo);
         }
       }
@@ -1958,6 +1999,8 @@ window.BR_POLY={"AC":[[30.7,238.0,28.7,238.0,29.2,236.2,29.0,235.4,27.5,234.2,27
       if (window.ResizeObserver) new ResizeObserver(resize).observe(host);
       document.addEventListener("visibilitychange", acordar);
       if (window.matchMedia) { var mq = matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", function () { setTimeout(api.recolorir, 50); }); }
+      api.dbg = function () { return { Z: Z, tx: tx, tz: tz, voo: voo, ne: [est.MA.bx, est.MA.bz, est.BA.bx, est.BA.bz, est.CE.bx, est.CE.bz, est.AL.bx, est.AL.bz] }; };
+      if (/[?&]dbg=1/.test(location.search)) window.__m = api;
       resize(); pos(); r.render(scene, cam);
       return api;
     }
