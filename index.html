@@ -401,6 +401,13 @@ html{scroll-padding-bottom:70px}
 .vvazio{font-size:.8rem;border:0!important;padding:4px 0!important}
 @media (max-width:330px){.vivo-cols{grid-template-columns:1fr}}
 
+/* Checagem ao vivo: cores corretas nos dois temas */
+.vivo-lista .v-ver{color:var(--on-red)}
+.vivo-lista .v-ver.ok{background:var(--ink);color:var(--paper)}
+.vcard .v-ver.neutro{background:transparent;color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .vcard{background:rgba(255,255,255,.06)}}
+:root[data-theme="dark"] .vcard{background:rgba(255,255,255,.06)}
+
 </style>
 </head>
 <body>
