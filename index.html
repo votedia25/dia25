@@ -29,6 +29,52 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Public+Sans:wght@400;600;800&display=swap">
 <script>document.documentElement.classList.add("js")</script>
+<script>/* Fases do app (horário de Brasília, UTC-3). ?fase=tudo|debate|espera|apuracao força uma fase para teste.
+   tudo: até 22/10 23:59 · debate: sex 23/10 · espera: sáb 24/10 · apuracao: dom 25/10 em diante.
+   Nas fases "debate", "espera" e "apuracao" o app mostra só a checagem ao vivo / a apuração. */
+(function () {
+  var H = document.documentElement, q = location.search.match(/[?&]fase=(\w+)/);
+  var SEX = Date.UTC(2026, 9, 23, 3), SAB = Date.UTC(2026, 9, 24, 3), DOM = Date.UTC(2026, 9, 25, 3);
+  var DEBATE = Date.UTC(2026, 9, 24, 0, 20), APURA = Date.UTC(2026, 9, 25, 20, 0);
+  function fase() { var n = Date.now(); return n < SEX ? "tudo" : n < SAB ? "debate" : n < DOM ? "espera" : "apuracao"; }
+  var f = q && /^(tudo|debate|espera|apuracao)$/.test(q[1]) ? q[1] : fase();
+  H.setAttribute("data-fase", f);
+  if (f === "tudo") return;
+  function falta(alvo) {
+    var s = Math.max(0, Math.floor((alvo - Date.now()) / 1000)), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+    return (d ? d + " d " : "") + (h || d ? h + " h " : "") + m + " min";
+  }
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function montar() {
+    var page = document.querySelector(".page"); if (!page) return;
+    var b = el("section", "fase-banner"); b.id = "fase"; b.setAttribute("aria-live", "polite");
+    var k = el("p", "fase-k"), t = el("h1", "fase-t"), s = el("p", "fase-s"), c = el("p", "fase-c");
+    b.appendChild(k); b.appendChild(t); b.appendChild(s); b.appendChild(c);
+    page.insertBefore(b, page.firstChild);
+    function pintar() {
+      var n = Date.now();
+      if (f === "debate") {
+        k.textContent = "Sexta, 23/10";
+        t.textContent = "Checagem ao vivo do debate";
+        s.textContent = "Debate da Globo às 21h20 (Brasília). Flávio | Lula, lado a lado: cada fala com horário e veredito das agências de checagem. Atualiza sozinho.";
+        c.textContent = n < DEBATE ? "Começa em " + falta(DEBATE) : "No ar. Os vereditos aparecem abaixo assim que as agências publicam.";
+      } else if (f === "espera") {
+        k.textContent = "Sábado, 24/10";
+        t.textContent = "Domingo, 17h: apuração ao vivo";
+        s.textContent = "Mapa do Brasil, placar e percentual apurado por estado, direto do TSE. Abra este endereço no domingo, a partir das 17h (Brasília).";
+        c.textContent = "Faltam " + falta(APURA);
+      } else {
+        k.textContent = "Domingo, 25/10";
+        t.textContent = "Apuração ao vivo";
+        if (n < APURA) { s.textContent = "A votação vai das 8h às 17h (Brasília). Os primeiros números saem depois das 17h."; c.textContent = "Faltam " + falta(APURA); }
+        else { s.textContent = ""; c.textContent = ""; b.hidden = true; }
+      }
+    }
+    pintar(); setInterval(pintar, 30000);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", montar); else montar();
+})();
+</script>
 <style>
 /* Dia 25 v2. Cartaz de rua em duas tintas (vermelho e preto) sobre papel com grão,
    letras gigantes cortadas pela borda, peças coladas levemente tortas. */
@@ -494,6 +540,23 @@ html{scroll-padding-bottom:70px}
 .m3d-zoom button{width:44px;height:44px;border:3px solid var(--ink);background:var(--paper);color:var(--ink);font:900 1.35rem/1 "Public Sans",sans-serif;cursor:pointer;padding:0}
 .m3d-zoom button:last-child{font-size:.95rem}
 .m3d-zoom button:active{background:var(--red);color:#fff}
+
+/* Fases do app: só checagem (sexta), só apuração (domingo) */
+html[data-fase="debate"] .masthead,html[data-fase="espera"] .masthead,html[data-fase="apuracao"] .masthead,
+html[data-fase="debate"] .page>section:not(#ao-vivo):not(#fase),
+html[data-fase="espera"] .page>section:not(#ao-vivo):not(#fase):not(#apuracao),
+html[data-fase="apuracao"] .page>section:not(#apuracao):not(#fase),
+html[data-fase="debate"] .tabs,html[data-fase="espera"] .tabs,html[data-fase="apuracao"] .tabs,
+html[data-fase="debate"] .vote,html[data-fase="espera"] .vote,html[data-fase="apuracao"] .vote,
+html[data-fase="debate"] .prog,html[data-fase="espera"] .prog,html[data-fase="apuracao"] .prog{display:none!important}
+html[data-fase="debate"] body,html[data-fase="espera"] body,html[data-fase="apuracao"] body{padding-bottom:24px}
+.fase-banner{border-top:4px solid var(--red);padding:22px 0 20px;margin-bottom:8px}
+.fase-banner[hidden]{display:none}
+.fase-k{margin:0 0 6px;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--red)}
+.fase-t{margin:0 0 10px;font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(2.4rem,11vw,3.6rem);line-height:.92}
+.fase-s{margin:0 0 12px;max-width:34em}
+.fase-c{display:inline-block;margin:0;background:var(--ink);color:var(--paper);font-weight:800;padding:6px 10px}
+.fase-c:empty{display:none}
 
 </style>
 </head>
