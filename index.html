@@ -485,6 +485,10 @@ html{scroll-padding-bottom:70px}
 .m3d-labs span{font:700 8.5px "Public Sans",sans-serif!important;letter-spacing:.04em;color:rgba(255,255,255,.82)!important;-webkit-text-stroke:0!important;paint-order:normal!important;text-shadow:0 1px 1px rgba(0,0,0,.32)}
 .ap-svg .ap-uf{font-size:7.5px;font-weight:700;fill:rgba(255,255,255,.82);stroke:none}
 
+/* Barra de abas no escuro: vermelha, texto branco */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tabs{background:#B10F1B;border-top-color:#FF4B4B}:root:not([data-theme="light"]) .tabs a{color:#FFD9DB}:root:not([data-theme="light"]) .tabs a.on{color:#fff}:root:not([data-theme="light"]) .tabs a.on i{background:#fff}:root:not([data-theme="light"]) .tabs a:active{background:#8E0C16}}
+:root[data-theme="dark"] .tabs{background:#B10F1B;border-top-color:#FF4B4B}:root[data-theme="dark"] .tabs a{color:#FFD9DB}:root[data-theme="dark"] .tabs a.on{color:#fff}:root[data-theme="dark"] .tabs a.on i{background:#fff}:root[data-theme="dark"] .tabs a:active{background:#8E0C16}
+
 </style>
 </head>
 <body>
