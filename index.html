@@ -375,6 +375,23 @@ html{scroll-padding-bottom:70px}
 .pl-leg{font-size:.8rem}
 .pl-nota{font-size:.78rem;margin:0}
 
+/* Colunas: Flávio | Lula */
+.vivo-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+.vcol h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:1.5rem;text-transform:uppercase;margin:0 0 8px;padding-bottom:6px;border-bottom:4px solid var(--ink)}
+.vcol .vivo-lista{gap:10px}
+.vcard{border-top:0!important;padding:8px 8px 10px 10px!important;border-left:6px solid var(--hair);background:rgba(255,255,255,.35);gap:4px}
+.vcard.r{border-left-color:var(--red)}
+.vcard.g{border-left-color:var(--ink)}
+.vcard .v-h{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:.7rem}
+.vcard .v-ver{margin:0;padding:1px 6px;font-size:.7rem}
+.vcard .v-ver.neutro{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.vcard .v-hora{font-weight:800}
+.vcard .v-d{font-size:.82rem;line-height:1.25}
+.vcard .v-f{font-size:.8rem;line-height:1.3}
+.vcard .v-s{font-size:.7rem}
+.vvazio{font-size:.8rem;border:0!important;padding:4px 0!important}
+@media (max-width:330px){.vivo-cols{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -445,7 +462,10 @@ html{scroll-padding-bottom:70px}
     <p class="intro" id="vivoInfo">Atualiza sozinho a cada 30 segundos. Só entram falas já classificadas por agências de checagem, com link para a checagem. Quando não há classificação publicada, a fala não aparece aqui.</p>
     <div class="placar" id="vivoPlacar" aria-live="polite"></div>
     <p class="vivo-ts" id="vivoTs" aria-live="polite"></p>
-    <ol class="vivo-lista" id="vivoLista"></ol>
+    <div class="vivo-cols">
+      <section class="vcol" aria-labelledby="vh-f"><h3 id="vh-f">Flávio Bolsonaro</h3><ol class="vivo-lista" id="vivoListaF"></ol></section>
+      <section class="vcol" aria-labelledby="vh-l"><h3 id="vh-l">Lula</h3><ol class="vivo-lista" id="vivoListaL"></ol></section>
+    </div>
   </section>
 
   <section class="block rv aviso-local" id="local" aria-labelledby="h-local">
@@ -1316,7 +1336,7 @@ window.DIA25 = {
 (function () {
   var sec = document.getElementById("ao-vivo");
   if (!sec || !window.fetch) return;
-  var lista = document.getElementById("vivoLista"), ts = document.getElementById("vivoTs");
+  var listaF = document.getElementById("vivoListaF"), listaL = document.getElementById("vivoListaL"), ts = document.getElementById("vivoTs");
   var ultimo = "";
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   var RUIM = /falso|distorc|engan|impreci|exager|insustent|incorret|contest|sem sustent|desinform/i;
@@ -1353,19 +1373,21 @@ window.DIA25 = {
     var h = document.getElementById("h-vivo"); if (j.titulo) h.textContent = j.titulo;
     ts.textContent = j.atualizado ? "Atualizado às " + j.atualizado : "";
     placar(j.itens || []);
-    lista.textContent = "";
+    listaF.textContent = ""; listaL.textContent = "";
     (j.itens || []).slice().reverse().forEach(function (it) {
-      var li = el("li");
-      var cab = el("p", "v-h"); cab.appendChild(el("span", "v-ver" + (/verdad|correto|fato/i.test(it.veredito) ? " ok" : ""), it.veredito));
-      cab.appendChild(document.createTextNode((it.hora ? it.hora + " · " : "") + it.quem));
+      var ruim = RUIM.test(it.veredito) && !BOM.test(it.veredito), bom = BOM.test(it.veredito) && !RUIM.test(it.veredito);
+      var li = el("li", "vcard " + (ruim ? "r" : (bom ? "g" : "o")));
+      var cab = el("p", "v-h"); cab.appendChild(el("span", "v-ver" + (bom ? " ok" : (ruim ? "" : " neutro")), it.veredito));
+      cab.appendChild(el("span", "v-hora", it.hora || ""));
       li.appendChild(cab);
       li.appendChild(el("p", "v-d", "Disse: " + it.disse));
       li.appendChild(el("p", "v-f", it.fato));
       if (it.fonte && /^https:\/\//.test(it.fonte.url)) {
         var p = el("p", "v-s", "Fonte: "), a = el("a", null, it.fonte.nome); a.href = it.fonte.url; a.rel = "noopener"; p.appendChild(a); li.appendChild(p);
       }
-      lista.appendChild(li);
+      (/fl[aá]vio/i.test(it.quem) ? listaF : listaL).appendChild(li);
     });
+    [listaF, listaL].forEach(function (l) { if (!l.children.length) l.appendChild(el("li", "vvazio", "Nenhuma fala checada ainda.")); });
   }
   function buscar() {
     if (document.hidden) return;
