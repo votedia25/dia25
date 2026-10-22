@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Teste TSE</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;margin:16px;max-width:42rem}pre{white-space:pre-wrap;word-break:break-word;background:#eee;padding:10px;font-size:12px;max-height:50vh;overflow:auto}button{font:inherit;padding:10px 14px;margin:6px 6px 6px 0}.ok{color:#0a6b2a;font-weight:700}.ruim{color:#b00020;font-weight:700}</style></head>
+<body>
+<h1>Teste de leitura dos dados do TSE</h1>
+<p>Esta página só testa se o navegador consegue ler os dados oficiais de resultados. Não coleta nada. Toque em "Rodar teste", espere uns segundos e depois em "Copiar resultado", e cole na conversa.</p>
+<button id="b">Rodar teste</button><button id="c">Copiar resultado</button>
+<pre id="o">Aguardando.</pre>
+<script>
+var out=[];function log(s){out.push(s);document.getElementById("o").textContent=out.join("\n")}
+var URLS=[
+ ["config (lista de eleições)","https://resultados.tse.jus.br/oficial/comum/config/ele-c.json"],
+ ["2022, 2º turno, presidente (referência)","https://resultados.tse.jus.br/oficial/ele2022/545/dados-simplificados/br/br-c0001-e000545-r.json"]
+];
+function rodar(){
+ out=[];log("Início: "+new Date().toString()+"\nNavegador: "+navigator.userAgent+"\n");
+ var p=Promise.resolve();
+ URLS.forEach(function(u){p=p.then(function(){
+  return fetch(u[1],{cache:"no-store"}).then(function(r){
+   log("["+u[0]+"] HTTP "+r.status+" "+(r.ok?"OK":"FALHOU"));
+   return r.text().then(function(t){log("  tamanho: "+t.length+" caracteres\n  começo: "+t.slice(0,1200).replace(/\s+/g," ")+"\n");
+    if(u[0].indexOf("config")===0){try{var j=JSON.parse(t);var s=JSON.stringify(j);var m=s.match(/.{0,140}2026.{0,140}/g)||[];log("  trechos com 2026 ("+m.length+"):\n  "+m.slice(0,6).join("\n  ")+"\n")}catch(e){log("  não é JSON: "+e)}}
+   });
+  }).catch(function(e){log("["+u[0]+"] ERRO de rede/CORS: "+e+"\n")});
+ })});
+ p.then(function(){log("Fim do teste.")});
+}
+document.getElementById("b").onclick=rodar;
+document.getElementById("c").onclick=function(){var t=out.join("\n");if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){alert("Copiado")},function(){alert("Selecione o texto e copie manualmente")})}else{alert("Selecione o texto e copie manualmente")}};
+</script></body></html>
