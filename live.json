@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:13",
+ "atualizado": "23:16",
  "itens": [
   {
    "hora": "",
@@ -166,6 +166,17 @@
    "fonte": {
     "nome": "Revista Fórum (Contra Fake)",
     "url": "https://revistaforum.com.br/blogs/contra-fake/checagem-debate-globo-l17-em-2009-flavio-foi-o-unico-de-49-deputados-d/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Verdadeiro",
+   "disse": "“A taxa de juros oficial no Brasil hoje está aí em torno de 14%.”",
+   "fato": "A Lupa classificou como verdadeira a afirmação de que a Selic está em torno de 14%. Os números do Banco Central estão na checagem completa.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
    }
   }
  ]
