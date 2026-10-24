@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:31",
+ "atualizado": "23:36",
  "itens": [
   {
    "hora": "",
@@ -203,7 +203,7 @@
   },
   {
    "hora": "",
-   "quem": "Flávio",
+   "quem": "Lula",
    "veredito": "Verdadeiro",
    "disse": "“Nunca se exportou tanto neste país.”",
    "fato": "Em 2025, o Brasil teve o maior valor anual de exportações desde 1997: US$ 348,3 bilhões. De janeiro a setembro de 2026, foram US$ 284,6 bilhões, alta de 10,4% sobre o mesmo período de 2025.",
@@ -240,6 +240,17 @@
    "veredito": "Falta contexto",
    "disse": "“Você [Lula] não tem vergonha de deixar o país quebrado desse jeito?”",
    "fato": "A dívida bruta chegou a R$ 11,1 trilhões (82,9% do PIB) em agosto de 2026. O PIB cresceu 3,2% em 2023, 3,4% em 2024 e 2,3% em 2025. O governo registrou déficit primário de R$ 47,6 bilhões em 2024 e R$ 61,6 bilhões em 2025.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falso",
+   "disse": "Sobre Lula: “Ele é o pai do Tigrinho.”",
+   "fato": "A lei que permitiu as apostas esportivas de quota fixa foi sancionada por Michel Temer, em 2018. O prazo para regulamentar expirou no governo Bolsonaro. Em 2023, o governo Lula regulamentou o setor e definiu regras e impostos.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
