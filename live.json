@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "22:57",
+ "atualizado": "23:01",
  "itens": [
   {
    "hora": "",
@@ -130,6 +130,17 @@
    "veredito": "Falta contexto",
    "disse": "“O atual governo tá deixando uma dívida aí de 11 trilhões de reais para você, trabalhador, pagar.”",
    "fato": "O valor é da dívida bruta do governo geral (União, INSS, estados e municípios): R$ 11,1 trilhões em agosto de 2026, 82,9% do PIB, segundo o Banco Central. A dívida só da União é de R$ 9,29 trilhões.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "“Você [Flávio] chamou o Bolsa Família de ‘bolsa farelo’.”",
+   "fato": "Flávio usou a expressão em publicações no X e, em 2011, como deputado estadual, para chamar de “bolsa farelo” um projeto estadual que complementaria o Bolsa Família. As publicações foram apagadas na campanha e recuperadas pela imprensa.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
