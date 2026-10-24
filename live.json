@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:23",
+ "atualizado": "23:31",
  "itens": [
   {
    "hora": "",
@@ -207,6 +207,39 @@
    "veredito": "Verdadeiro",
    "disse": "“Nunca se exportou tanto neste país.”",
    "fato": "Em 2025, o Brasil teve o maior valor anual de exportações desde 1997: US$ 348,3 bilhões. De janeiro a setembro de 2026, foram US$ 284,6 bilhões, alta de 10,4% sobre o mesmo período de 2025.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Verdadeiro",
+   "disse": "“São mais de 80 milhões de brasileiros que estão com as contas atrasadas.”",
+   "fato": "Dados da Serasa de agosto de 2026 mostram 83,9 milhões de inadimplentes, cerca de 51% da população adulta.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falso",
+   "disse": "Sobre o vídeo de Bolsonaro imitando falta de ar: “Se você pegar 10 segundos antes e 10 segundos depois, você vai ver que é exatamente o contrário.”",
+   "fato": "Em 18 de março e 6 de maio de 2021, Jair Bolsonaro imitou uma pessoa sem ar em lives, ao criticar o então ministro Mandetta. A OMS contraindicou ivermectina e hidroxicloroquina para Covid-19.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falta contexto",
+   "disse": "“Você [Lula] não tem vergonha de deixar o país quebrado desse jeito?”",
+   "fato": "A dívida bruta chegou a R$ 11,1 trilhões (82,9% do PIB) em agosto de 2026. O PIB cresceu 3,2% em 2023, 3,4% em 2024 e 2,3% em 2025. O governo registrou déficit primário de R$ 47,6 bilhões em 2024 e R$ 61,6 bilhões em 2025.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
