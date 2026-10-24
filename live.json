@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:52",
+ "atualizado": "00:34",
  "itens": [
   {
    "hora": "",
@@ -30,11 +30,15 @@
    "quem": "Lula",
    "veredito": "Exagerado",
    "disse": "“Eu tinha acabado com a fome nesse país em 2012.”",
-   "fato": "O relatório da FAO que tirou o Brasil do Mapa da Fome é de 2014. Os desnutridos caíram de 19 milhões (2002) para 3,4 milhões (2013), mas a fome não foi totalmente erradicada.",
+   "fato": "O Brasil saiu do Mapa da Fome em 2014, não em 2012.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "O relatório da FAO que tirou o Brasil do Mapa da Fome é de 2014, não de 2012. A fome não foi totalmente erradicada.",
+    "Os desnutridos caíram de 19 milhões (2002) para 3,4 milhões (2013). Lula deixou a Presidência em 2010, e em 2012 governava Dilma Rousseff."
+   ]
   },
   {
    "hora": "",
@@ -52,11 +56,15 @@
    "quem": "Flávio",
    "veredito": "Falso",
    "disse": "Barra de chocolate que “antes tinha 120g” e “agora tem só 80g”.",
-   "fato": "Já havia barras de 80 g à venda em 2022, no governo Bolsonaro. A redução de tamanho vem desde os anos 1990.",
+   "fato": "Já havia barras de 80 g em 2022, no governo Bolsonaro.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "Já havia barras de 80 g à venda em 2022, no governo Bolsonaro. A redução de tamanho vem desde os anos 1990, quando algumas barras pesavam mais de 200 g.",
+    "As empresas atribuem a mudança à alta de custos (cacau, leite, açúcar e logística). Desde 2021, uma portaria obriga a informar mudanças de quantidade em produtos embalados."
+   ]
   },
   {
    "hora": "",
@@ -85,22 +93,30 @@
    "quem": "Flávio",
    "veredito": "Exagerado",
    "disse": "“Você já gastou mais de R$ 400 bilhões para tentar se reeleger.”",
-   "fato": "Ferramenta do Estadão soma R$ 405 bilhões em medidas com impacto orçamentário no ano eleitoral. O valor não indica que tudo foi desembolsado nem comprova finalidade eleitoral. O governo nega essa intenção.",
+   "fato": "O valor soma medidas do ano eleitoral, não gasto comprovado para se reeleger.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "Uma ferramenta do Estadão soma R$ 405 bilhões em medidas com impacto orçamentário no ano eleitoral. Desse total, R$ 73,2 bilhões são renúncias fiscais e R$ 51,1 bilhões ficam fora do orçamento aprovado.",
+    "O valor não indica que tudo foi desembolsado nem comprova finalidade eleitoral. O governo nega essa intenção e diz tratar-se de execução regular de políticas públicas."
+   ]
   },
   {
    "hora": "",
    "quem": "Flávio",
    "veredito": "Exagerado",
    "disse": "Atribui a Jair Bolsonaro ter elevado o Bolsa Família “para, no mínimo, R$ 600”.",
-   "fato": "O Auxílio Brasil nasceu em 2021 com mínimo de R$ 400. O valor de R$ 600 só foi decidido em junho de 2022.",
+   "fato": "O R$ 600 só veio em junho de 2022. O mínimo criado era R$ 400.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "A medida provisória de agosto de 2021 criou o Auxílio Brasil com mínimo de R$ 400. O valor de R$ 600 só foi decidido em junho de 2022.",
+    "A PEC enviada previa R$ 600 apenas até o fim de 2022, e o projeto de orçamento para 2023 previa R$ 400."
+   ]
   },
   {
    "hora": "",
@@ -151,11 +167,15 @@
    "quem": "Flávio",
    "veredito": "Exagerado",
    "disse": "Que Jair Bolsonaro concluiu as obras da transposição do São Francisco e fez a água chegar ao Nordeste.",
-   "fato": "O governo Bolsonaro inaugurou trechos (Eixo Norte, em 2020, e outras etapas em 2022), mas a obra segue em andamento. O Eixo Leste opera parcialmente desde 2017. A Revista Fórum classificou a mesma fala como Enganoso.",
+   "fato": "O governo Bolsonaro inaugurou trechos, mas a obra segue em andamento.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "O governo Bolsonaro inaugurou trechos (Eixo Norte, em junho de 2020, e outras etapas em 2022), mas a obra segue em andamento.",
+    "O projeto foi assinado em 2004 e o Eixo Norte começou a ser construído em 2007, no governo Lula. O Eixo Leste opera parcialmente desde 2017."
+   ]
   },
   {
    "hora": "22:33",
@@ -184,11 +204,15 @@
    "quem": "Lula",
    "veredito": "Falso",
    "disse": "“A economia não crescia acima de 3% desde que eu deixei a presidência em 2010.”",
-   "fato": "O PIB cresceu 3,9% em 2011 e 4,8% em 2021, e 3,0% em 2022 e em 2013. O crescimento de 2021 veio depois da queda de 3,3% em 2020.",
+   "fato": "O PIB cresceu mais de 3% em 2011, 2021 e 2022.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "O PIB cresceu 3,9% em 2011, 3,0% em 2013, 4,8% em 2021 (depois da queda de 3,3% em 2020) e 3,0% em 2022.",
+    "A Lupa já havia desmentido a mesma afirmação em outras quatro ocasiões. A Secom diz que a média de 2011 a 2022 ficou pouco abaixo de 1% ao ano e que 2021 foi puxado pela queda de 2020."
+   ]
   },
   {
    "hora": "",
@@ -228,11 +252,15 @@
    "quem": "Flávio",
    "veredito": "Falso",
    "disse": "Sobre o vídeo de Bolsonaro imitando falta de ar: “Se você pegar 10 segundos antes e 10 segundos depois, você vai ver que é exatamente o contrário.”",
-   "fato": "Em 18 de março e 6 de maio de 2021, Jair Bolsonaro imitou uma pessoa sem ar em lives, ao criticar o então ministro Mandetta. A OMS contraindicou ivermectina e hidroxicloroquina para Covid-19.",
+   "fato": "Bolsonaro imitou uma pessoa sem ar em lives de 2021.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "Em 18 de março e 6 de maio de 2021, Jair Bolsonaro imitou uma pessoa sem ar em lives, ao criticar o então ministro Henrique Mandetta.",
+    "Na época, ele defendia ir ao hospital só com falta de ar e o “tratamento precoce” com ivermectina e hidroxicloroquina, sem eficácia comprovada. A OMS contraindicou esses remédios para a Covid-19."
+   ]
   },
   {
    "hora": "",
@@ -250,33 +278,45 @@
    "quem": "Flávio",
    "veredito": "Falso",
    "disse": "Sobre Lula: “Ele é o pai do Tigrinho.”",
-   "fato": "A lei que permitiu as apostas esportivas de quota fixa foi sancionada por Michel Temer, em 2018. O prazo para regulamentar expirou no governo Bolsonaro. Em 2023, o governo Lula regulamentou o setor e definiu regras e impostos.",
+   "fato": "A lei das apostas é de 2018, de Temer. O prazo venceu no governo Bolsonaro.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "A Lei 13.756/2018, que legalizou as apostas esportivas de quota fixa, foi sancionada por Michel Temer e deu até quatro anos para regulamentar o setor.",
+    "Jair Bolsonaro não cumpriu o prazo, e o setor operou sem regras e sem impostos. Em 2023, Lula sancionou a Lei 14.790/2023, que regulamentou e tributou o mercado."
+   ]
   },
   {
    "hora": "",
    "quem": "Lula",
    "veredito": "Falso",
    "disse": "“O ‘tigrinho’ foi criado por vocês [governo Bolsonaro] em 2022.”",
-   "fato": "As apostas online foram legalizadas em 2018, no fim do governo Temer, com prazo de até quatro anos para regulamentar. O prazo venceu no governo Bolsonaro sem regulamentação. O governo Lula regulamentou o setor em 2023.",
+   "fato": "As apostas foram legalizadas em 2018, no governo Temer.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "As casas de apostas online foram legalizadas em 2018, no fim do governo Temer, com prazo de até quatro anos para regulamentação.",
+    "Bolsonaro não cumpriu o prazo, e o setor funcionou sem regras e sem impostos no governo dele. A checagem refuta a fala com base na legalização de 2018 e não traz dados sobre a criação do jogo em si."
+   ]
   },
   {
    "hora": "",
    "quem": "Flávio",
    "veredito": "Falso",
    "disse": "Que o governo diz que “ladrão de celular não tem que ser preso porque é só roubar para comprar uma cervejinha”.",
-   "fato": "A alegação já havia sido desmentida pela Lupa em 2020. Trechos de entrevistas de 2017 foram editados para sugerir que Lula defendeu roubar celulares. Na fala original, ele atribui a violência à falta de perspectiva econômica.",
+   "fato": "Trechos de entrevistas de 2017 foram editados para sugerir isso.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
-   }
+   },
+   "porque": [
+    "A Lupa já havia desmentido essa alegação em 2020. Trechos de entrevistas de Lula, Gleisi Hoffmann e Dilma Rousseff a rádios de Pernambuco, em agosto de 2017, foram editados para sugerir que ele defendeu roubar celulares.",
+    "Na fala original, Lula atribui a violência à falta de perspectiva econômica. A menção à cerveja se refere a torcedores rivais que depois vão ao bar juntos, não a criminosos."
+   ]
   },
   {
    "hora": "",
@@ -284,6 +324,39 @@
    "veredito": "Falta contexto",
    "disse": "“Na Argentina, a pobreza chegou a 40% [no governo Milei].”",
    "fato": "Dados do Indec: 52,4% no primeiro semestre de 2024, 38% no segundo, 31% no primeiro de 2025 e 32,3% no primeiro de 2026. Nenhum desses números é exatamente 40%.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Subestimado",
+   "disse": "“Nosso superávit comercial foi para quase R$ 85 bilhões.”",
+   "fato": "O número é a projeção do MDIC para o ano de 2026 (US$ 84,4 bilhões), não um resultado já alcançado. De janeiro a setembro, o saldo foi de US$ 62,4 bilhões.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "“Nós fizemos a lei da pequena e média empresa porque nós queremos que o empreendedorismo vença nesse país.”",
+   "fato": "A Lei Complementar 123, que instituiu o Simples Nacional, foi sancionada por Lula em 2006. Ele não mencionou que a norma tem 20 anos.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "Que, no governo Bolsonaro, se dizia que quem tomava vacina ia virar gay e virar jacaré.",
+   "fato": "Em dezembro de 2020, Bolsonaro questionou a segurança das vacinas e, em tom irônico, citou efeitos como virar jacaré e “homem começar a falar fino”. A transcrição não traz a palavra “gay”, mas a essência da acusação se confirma.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"

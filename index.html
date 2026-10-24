@@ -610,6 +610,10 @@ html.m3d-trava,html.m3d-trava body{overflow:hidden}
 .splash-b{animation:splash-bar 1s .9s both}
 @media (prefers-reduced-motion:reduce){.splash .coin{animation:none;transform:rotateY(-12deg) rotateX(8deg)}.splash-n span{animation:none}.splash-s,.splash-b{animation:none}}
 
+.vcard .v-por{margin:4px 0 2px;border-top:2px solid var(--ink);padding-top:4px}
+.vcard .v-por summary{font-weight:800;font-size:.78rem;cursor:pointer;text-transform:uppercase;letter-spacing:.03em}
+.vcard .v-por p{margin:4px 0 0;font-size:.78rem;line-height:1.3}
+
 </style>
 </head>
 <body>
@@ -1641,6 +1645,12 @@ window.DIA25 = {
       li.appendChild(cab);
       li.appendChild(el("p", "v-d", "Disse: " + it.disse));
       li.appendChild(el("p", "v-f", it.fato));
+      if (it.porque && ruim) {
+        var dt = document.createElement("details"); dt.className = "v-por"; dt.open = true;
+        dt.appendChild(el("summary", null, "Por que é " + String(it.veredito).toLowerCase()));
+        (Array.isArray(it.porque) ? it.porque : [it.porque]).forEach(function (t) { dt.appendChild(el("p", null, t)); });
+        li.appendChild(dt);
+      }
       if (it.fonte && /^https:\/\//.test(it.fonte.url)) {
         var p = el("p", "v-s", "Fonte: "), a = el("a", null, it.fonte.nome); a.href = it.fonte.url; a.rel = "noopener"; p.appendChild(a); li.appendChild(p);
       }
