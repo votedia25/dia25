@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "00:58",
+ "atualizado": "01:30",
  "itens": [
   {
    "hora": "",
@@ -420,6 +420,77 @@
    "veredito": "Falta contexto",
    "disse": "“Está faltando até dipirona na Unidade Básica de Saúde.”",
    "fato": "Cabe aos municípios, com financiamento tripartite, fornecer os remédios básicos. Não há levantamento nacional de 2026, só casos pontuais. Em 2022, no governo Bolsonaro, houve desabastecimento generalizado do analgésico.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Exagerado",
+   "disse": "“Moradores de rua que dobraram durante o seu governo [Lula].”",
+   "fato": "O Cadastro Único registra 399.809 pessoas em situação de rua, alta de cerca de 42% sobre as 281.472 do Ipea em 2022. Não houve duplicação.",
+   "porque": [
+    "O Ipea estimou 281.472 pessoas em situação de rua em 2022, último dado publicado pelo órgão. O Cadastro Único mais recente registra 399.809, alta de cerca de 42%.",
+    "Portanto, a população em situação de rua cresceu, mas não dobrou."
+   ],
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falta contexto",
+   "disse": "“Você [Lula] é uma pessoa ali que é contra a maioridade penal.”",
+   "fato": "Em 15/10/2026, na TV Globo, Lula disse ser favorável a reduzir a maioridade penal de 18 para 16 anos em crimes hediondos. Em 2015, havia criticado a mudança.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Insustentável",
+   "disse": "Sobre a morte de Ana Clara: “era uma troca de tiros numa comunidade conflagrada.”",
+   "fato": "Segundo o Ministério Público do RJ, não há sinais de confronto na viatura, e a perícia achou apenas vestígios da munição do policial.",
+   "porque": [
+    "A defesa do policial Bruno Delaroli, da qual Flávio faz parte, afirma que ele reagiu a traficantes armados. Segundo o Ministério Público do RJ, não há sinais de confronto na viatura, e a perícia encontrou apenas vestígios da munição do policial.",
+    "Moradores negam troca de tiros ou tráfico no local. A denúncia diz que ele atirou em direção a área residencial e de lazer, “com vontade livre e consciente”. Ana Clara tinha 5 anos e foi morta em fevereiro de 2021."
+   ],
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Exagerado",
+   "disse": "“O Brasil voltou a ser um grande cemitério de obras [segundo o TCU].”",
+   "fato": "O painel do TCU mostra obras paralisadas caindo de 8,6 mil (agosto de 2022) para 4,2 mil (abril de 2026).",
+   "porque": [
+    "As obras paralisadas caíram de 8,6 mil (agosto de 2022) para 4,2 mil (abril de 2026), cerca de metade. As ativas foram de 22,5 mil para 22,4 mil.",
+    "O TCU alerta que o painel reúne só obras federais de algumas bases de dados e que mudanças metodológicas podem prejudicar comparações no tempo."
+   ],
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Insustentável",
+   "disse": "Sobre o filme “Dark Horse”: “não tem dinheiro público nele.”",
+   "fato": "Documentos da PF, citados pelo The Intercept Brasil, indicam que o dinheiro do filme saiu do banco Master por meio de fraudes e empréstimos ilícitos.",
+   "porque": [
+    "Segundo reportagem do The Intercept Brasil de 23/10, citada pela Lupa, documentos da PF dizem que o dinheiro do filme saiu do banco Master por fraudes e empréstimos ilícitos.",
+    "Há um depósito de R$ 12 milhões da Entre Investimentos e sete repasses entre fevereiro e setembro de 2025 ao fundo Havengate, nos EUA, somando US$ 12,3 milhões. A PF investiga um esquema de lavagem comandado por Daniel Vorcaro, com indícios de origem em fraudes e desvio de verbas públicas."
+   ],
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
