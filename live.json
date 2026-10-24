@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:38",
+ "atualizado": "23:52",
  "itens": [
   {
    "hora": "",
@@ -262,6 +262,28 @@
    "veredito": "Falso",
    "disse": "“O ‘tigrinho’ foi criado por vocês [governo Bolsonaro] em 2022.”",
    "fato": "As apostas online foram legalizadas em 2018, no fim do governo Temer, com prazo de até quatro anos para regulamentar. O prazo venceu no governo Bolsonaro sem regulamentação. O governo Lula regulamentou o setor em 2023.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falso",
+   "disse": "Que o governo diz que “ladrão de celular não tem que ser preso porque é só roubar para comprar uma cervejinha”.",
+   "fato": "A alegação já havia sido desmentida pela Lupa em 2020. Trechos de entrevistas de 2017 foram editados para sugerir que Lula defendeu roubar celulares. Na fala original, ele atribui a violência à falta de perspectiva econômica.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Falta contexto",
+   "disse": "“Na Argentina, a pobreza chegou a 40% [no governo Milei].”",
+   "fato": "Dados do Indec: 52,4% no primeiro semestre de 2024, 38% no segundo, 31% no primeiro de 2025 e 32,3% no primeiro de 2026. Nenhum desses números é exatamente 40%.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
