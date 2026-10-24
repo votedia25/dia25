@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:36",
+ "atualizado": "23:38",
  "itens": [
   {
    "hora": "",
@@ -251,6 +251,17 @@
    "veredito": "Falso",
    "disse": "Sobre Lula: “Ele é o pai do Tigrinho.”",
    "fato": "A lei que permitiu as apostas esportivas de quota fixa foi sancionada por Michel Temer, em 2018. O prazo para regulamentar expirou no governo Bolsonaro. Em 2023, o governo Lula regulamentou o setor e definiu regras e impostos.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Falso",
+   "disse": "“O ‘tigrinho’ foi criado por vocês [governo Bolsonaro] em 2022.”",
+   "fato": "As apostas online foram legalizadas em 2018, no fim do governo Temer, com prazo de até quatro anos para regulamentar. O prazo venceu no governo Bolsonaro sem regulamentação. O governo Lula regulamentou o setor em 2023.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
