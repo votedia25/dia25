@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "22:50",
+ "atualizado": "22:57",
  "itens": [
   {
    "hora": "",
@@ -108,6 +108,28 @@
    "veredito": "Verdadeiro",
    "disse": "“E nós fizemos o Marco Legal do Saneamento Básico.”",
    "fato": "O marco foi sancionado em 2020, a partir de projeto do Executivo no governo Bolsonaro. Fixa metas de 99% de água potável e 90% de esgoto até 2033.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Verdadeiro",
+   "disse": "“A região Centro-Oeste é a região que mais produz alimentos no nosso Brasil.”",
+   "fato": "O Centro-Oeste tem o maior Valor Bruto da Produção Agropecuária entre as regiões: R$ 431,2 bilhões, segundo boletim do Ministério da Agricultura.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falta contexto",
+   "disse": "“O atual governo tá deixando uma dívida aí de 11 trilhões de reais para você, trabalhador, pagar.”",
+   "fato": "O valor é da dívida bruta do governo geral (União, INSS, estados e municípios): R$ 11,1 trilhões em agosto de 2026, 82,9% do PIB, segundo o Banco Central. A dívida só da União é de R$ 9,29 trilhões.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
