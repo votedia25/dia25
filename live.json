@@ -1,1 +1,117 @@
-{"ativo": true, "titulo": "Checagem ao vivo: debate da Globo", "atualizado": "22:15", "itens": []}
+{
+ "ativo": true,
+ "titulo": "Checagem ao vivo: debate da Globo",
+ "atualizado": "22:50",
+ "itens": [
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Subestimado",
+   "disse": "“Nós herdamos 6.000 obras paradas.”",
+   "fato": "Painel do TCU mostra 8,6 mil obras paralisadas em agosto de 2022, último ano do governo Bolsonaro. Em abril de 2026, eram 4,2 mil.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falta contexto",
+   "disse": "“…mais de 11.500 obras paralisadas do atual governo.”",
+   "fato": "A Lista de Alto Risco do TCU aponta 11.944 obras paralisadas, número que cresceu entre 2022 e 2024. São obras com recursos federais, não só do atual governo. O painel de abril de 2026 mostra 4.215.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Exagerado",
+   "disse": "“Eu tinha acabado com a fome nesse país em 2012.”",
+   "fato": "O relatório da FAO que tirou o Brasil do Mapa da Fome é de 2014. Os desnutridos caíram de 19 milhões (2002) para 3,4 milhões (2013), mas a fome não foi totalmente erradicada.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "“Quando eu voltei, tinha 33 milhões de pessoas passando fome.”",
+   "fato": "O inquérito da Rede Penssan (2022) estimou 33,1 milhões de pessoas em insegurança alimentar grave.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falso",
+   "disse": "Barra de chocolate que “antes tinha 120g” e “agora tem só 80g”.",
+   "fato": "Já havia barras de 80 g à venda em 2022, no governo Bolsonaro. A redução de tamanho vem desde os anos 1990.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "“Abrimos 700 novos mercados nesse país.”",
+   "fato": "O Ministério da Agricultura informou 700 mercados abertos para produtos agropecuários desde o início de 2023, em 99 destinos.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Falta contexto",
+   "disse": "Fala sobre a BR-319, ligando Porto Velho a Manaus.",
+   "fato": "A rodovia foi inaugurada em 1976 e ficou intrafegável em 1988, então as obras posteriores são de recuperação. Em julho de 2022, no governo Bolsonaro, o Ibama emitiu licença prévia para o “Trecho do Meio” (405,7 km).",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Exagerado",
+   "disse": "“Você já gastou mais de R$ 400 bilhões para tentar se reeleger.”",
+   "fato": "Ferramenta do Estadão soma R$ 405 bilhões em medidas com impacto orçamentário no ano eleitoral. O valor não indica que tudo foi desembolsado nem comprova finalidade eleitoral. O governo nega essa intenção.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Exagerado",
+   "disse": "Atribui a Jair Bolsonaro ter elevado o Bolsa Família “para, no mínimo, R$ 600”.",
+   "fato": "O Auxílio Brasil nasceu em 2021 com mínimo de R$ 400. O valor de R$ 600 só foi decidido em junho de 2022.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Verdadeiro",
+   "disse": "“E nós fizemos o Marco Legal do Saneamento Básico.”",
+   "fato": "O marco foi sancionado em 2020, a partir de projeto do Executivo no governo Bolsonaro. Fixa metas de 99% de água potável e 90% de esgoto até 2033.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  }
+ ]
+}
