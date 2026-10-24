@@ -614,6 +614,10 @@ html.m3d-trava,html.m3d-trava body{overflow:hidden}
 .vcard .v-por summary{font-weight:800;font-size:.78rem;cursor:pointer;text-transform:uppercase;letter-spacing:.03em}
 .vcard .v-por p{margin:4px 0 0;font-size:.78rem;line-height:1.3}
 
+.pl-termo{display:flex;flex-direction:column;gap:10px;align-items:flex-start;border-top:4px solid var(--ink);padding-top:12px}
+.pl-termo h3{margin:0;font-size:1rem;text-transform:uppercase;letter-spacing:.03em}
+.pl-termo-img{width:100%;max-width:300px;height:auto;aspect-ratio:9/16;border:4px solid var(--ink);background:#7D0A1A;display:block}
+
 </style>
 </head>
 <body>
@@ -1626,6 +1630,98 @@ window.DIA25 = {
     lg.appendChild(el("span", "k r", "falsa ou enganosa")); lg.appendChild(el("span", "k g", "verdadeira")); lg.appendChild(el("span", "k o", "sem selo"));
     box.appendChild(lg);
     box.appendChild(el("p", "pl-nota", "Conta só as falas que agências checaram nesta noite. Não é o total do que cada um disse."));
+    termometro(box, itens);
+  }
+
+  /* Termômetro em 3D minimalista: colunas isométricas desenhadas em canvas (a prévia é a própria imagem que se compartilha). */
+  function contar(itens, re) {
+    var r = 0, g = 0, o = 0;
+    itens.forEach(function (it) {
+      if (!re.test(it.quem)) return;
+      var ru = RUIM.test(it.veredito) && !BOM.test(it.veredito), bo = BOM.test(it.veredito) && !RUIM.test(it.veredito);
+      if (ru) r++; else if (bo) g++; else o++;
+    });
+    return { r: r, g: g, o: o, n: r + g + o };
+  }
+  function prisma(x, cx, yBase, w, h, y0, y1, cor, topo) {
+    /* segmento da coluna entre alturas y0 e y1 (0 a h), base centrada em cx, w = meia largura isométrica */
+    var d = w / 2, a = yBase - y0, b = yBase - y1;
+    function poly(pts, f) { x.beginPath(); pts.forEach(function (p, i) { i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1]); }); x.closePath(); x.fillStyle = f; x.fill(); x.lineWidth = 4; x.strokeStyle = "#111"; x.lineJoin = "round"; x.stroke(); }
+    poly([[cx - w, a - d], [cx, a], [cx, b], [cx - w, b - d]], cor[1]);
+    poly([[cx, a], [cx + w, a - d], [cx + w, b - d], [cx, b]], cor[2]);
+    if (topo) poly([[cx, b - 2 * d], [cx + w, b - d], [cx, b], [cx - w, b - d]], cor[0]);
+  }
+  function desenharTermometro(itens) {
+    var W = 1080, H = 1920, M = 80, c = document.createElement("canvas"); c.width = W; c.height = H;
+    var x = c.getContext("2d");
+    x.fillStyle = "#7D0A1A"; x.fillRect(0, 0, W, H);
+    x.fillStyle = "#F9EDEB"; x.textBaseline = "alphabetic";
+    function ls(v) { if ("letterSpacing" in x) x.letterSpacing = v; }
+    x.font = '800 30px "Public Sans", sans-serif'; ls("4px"); x.fillText("DEBATE DA GLOBO · TERMÔMETRO", M, 150); ls("0px");
+    var tt = 118;
+    for (; tt > 50; tt -= 4) { x.font = '900 ' + tt + 'px "Big Shoulders Display", Impact, sans-serif'; if (Math.max(x.measureText("QUEM MENTIU MAIS.").width, x.measureText("QUEM FALOU MAIS VERDADE.").width) <= W - 2 * M) break; }
+    x.fillText("QUEM MENTIU MAIS.", M, 300);
+    x.fillStyle = "#FFFFFF"; x.fillText("QUEM FALOU MAIS VERDADE.", M, 300 + tt * 0.95);
+    var COR = { r: ["#E8343F", "#D4141F", "#8E0F18"], o: ["#FFFFFF", "#F2D6D2", "#D9B3AE"], g: ["#4a4a4a", "#1c1c1c", "#000000"] };
+    var cols = [["Flávio", contar(itens, /fl[aá]vio/i), 300], ["Lula", contar(itens, /lula/i), 780]];
+    var Hc = 760, w = 120, yBase = 1330;
+    cols.forEach(function (k) {
+      var cx = k[2], t = k[1], y = 0;
+      /* chão */
+      x.beginPath(); x.moveTo(cx - w, yBase - w / 2); x.lineTo(cx, yBase); x.lineTo(cx + w, yBase - w / 2); x.lineTo(cx, yBase - w); x.closePath();
+      x.fillStyle = "rgba(0,0,0,.25)"; x.fill();
+      var seg = [["g", t.g], ["o", t.o], ["r", t.r]].filter(function (s) { return s[1] > 0; });
+      seg.forEach(function (s, i) {
+        var hh = t.n ? Hc * s[1] / t.n : 0;
+        prisma(x, cx, yBase, w, Hc, y, y + hh, COR[s[0]], i === seg.length - 1);
+        y += hh;
+      });
+      x.fillStyle = "#F9EDEB"; x.textAlign = "center";
+      x.font = '900 120px "Big Shoulders Display", Impact, sans-serif'; x.fillText(String(t.r), cx, yBase + 150);
+      x.font = '800 32px "Public Sans", sans-serif'; x.fillText(t.r === 1 ? "falsa ou enganosa" : "falsas ou enganosas", cx, yBase + 196);
+      x.font = '900 70px "Big Shoulders Display", Impact, sans-serif'; x.fillText(k[0].toUpperCase(), cx, yBase + 276);
+      x.font = '600 30px "Public Sans", sans-serif'; x.fillText(t.g + (t.g === 1 ? " verdadeira" : " verdadeiras") + " · " + t.n + " checadas", cx, yBase + 320);
+      x.textAlign = "left";
+    });
+    x.font = '600 26px "Public Sans", sans-serif'; x.fillStyle = "#F9EDEB";
+    function ajusta(t, y) {
+      var pal = t.split(" "), at = "", ly = y;
+      pal.forEach(function (p) { var q = at ? at + " " + p : p; if (x.measureText(q).width > W - 2 * M && at) { x.fillText(at, M, ly); ly += 34; at = p; } else at = q; });
+      x.fillText(at, M, ly);
+    }
+    ajusta("Vermelho: falso, exagerado ou insustentável · Rosa: falta contexto · Preto: verdadeiro. Só as falas já checadas pela Lupa e pela Revista Fórum, não o total do que cada um disse.", 1690);
+    x.fillRect(M, 1780, W - 2 * M, 4);
+    x.font = '800 36px "Public Sans", sans-serif'; x.fillText("Dia 25 · votedia25.github.io/dia25", M, 1840);
+    x.font = '600 22px "Public Sans", sans-serif'; x.fillText("Material de opinião de apoiador, sem vínculo com campanha.", M, 1880);
+    return c;
+  }
+  var termoN = 0;
+  function termometro(box, itens) {
+    var wrap = el("div", "pl-termo"), eu = ++termoN;
+    wrap.appendChild(el("h3", null, "Termômetro do debate"));
+    var img = el("img", "pl-termo-img"); img.alt = "Termômetro em 3D: quantas falas falsas, com ressalva e verdadeiras de cada candidato"; img.width = 270; img.height = 480;
+    var btn = el("button", "btn", "Compartilhar imagem"); btn.type = "button"; btn.disabled = true;
+    var blob = null;
+    wrap.appendChild(img); wrap.appendChild(btn);
+    box.appendChild(wrap);
+    var p = (document.fonts && document.fonts.load) ? Promise.all([document.fonts.load('900 100px "Big Shoulders Display"'), document.fonts.load('600 40px "Public Sans"'), document.fonts.load('800 40px "Public Sans"')]).catch(function () {}) : Promise.resolve();
+    p.then(function () {
+      if (eu !== termoN) return;
+      var cv = desenharTermometro(itens);
+      img.src = cv.toDataURL("image/png");
+      cv.toBlob(function (b) { blob = b; btn.disabled = !b; }, "image/png");
+    });
+    btn.addEventListener("click", function () {
+      if (!blob) return;
+      var f = new File([blob], "dia25-termometro.png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [f] }) && navigator.share) {
+        navigator.share({ files: [f], text: "Termômetro do debate. Dia 25: votedia25.github.io/dia25" }).catch(function () {});
+      } else {
+        var u = URL.createObjectURL(blob), a = document.createElement("a");
+        a.href = u; a.download = f.name; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+      }
+    });
   }
   function render(j) {
     if (!j || !j.ativo) { sec.hidden = true; return; }
