@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "01:30",
+ "atualizado": "02:00",
  "itens": [
   {
    "hora": "",
@@ -494,6 +494,54 @@
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "Sobre a proposta de Flávio para dívidas: “ele tá copiando uma coisa que eu já mandei pro Senado.”",
+   "fato": "Em 25/09/2026 o governo publicou a MP 1.393/2026, que criou a modalidade emergencial do Desenrola Brasil 3.0, com a União comprando carteiras de dívidas atrasadas de pessoas físicas. A MP está em vigor e precisa ser aprovada pelo Congresso até 23/11.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/?cmpid=copiaecola"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falso",
+   "disse": "“Eu vou criar a casa da mulher brasileira, onde você vai ser acolhida.”",
+   "fato": "O programa Casa da Mulher Brasileira existe desde 2013, criado por decreto no governo Dilma, e hoje há 13 unidades em funcionamento.",
+   "porque": [
+    "Não se pode criar o que já existe: o programa foi criado por decreto em 2013 e tem 13 unidades em funcionamento, segundo a Lupa.",
+    "Segundo a Folha, citada pela Lupa, a verba federal de combate à violência contra a mulher caiu 90% no governo Bolsonaro, de R$ 100,7 milhões em 2020 para R$ 9,1 milhões em 2022."
+   ],
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/?cmpid=copiaecola"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Verdadeiro",
+   "disse": "“O fato concreto é que a espera para uma cirurgia de câncer de tireoide ultrapassou os 700 dias.”",
+   "fato": "Relatório do TCU de junho de 2026 registrou fila de 719 dias para a cirurgia em 2025. Em 2024 foram 75 dias, em 2023 421 e em 2022 1.121.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/?cmpid=copiaecola"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Falta contexto",
+   "disse": "“Eu nunca fui investigado por causa de envolvimento com milícia.”",
+   "fato": "Em julho de 2026 a PF investigou desvios de emendas ligadas aos irmãos Brazão, e a PF não aponta Flávio como alvo direto. Segundo a Lupa, uma assessora dele negociou em 2023 emendas para o miliciano “Peixe”, e O Globo revelou em 2019 que ele empregou a mãe e a esposa do miliciano Adriano da Nóbrega.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/?cmpid=copiaecola"
    }
   }
  ]
