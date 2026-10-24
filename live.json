@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:19",
+ "atualizado": "23:23",
  "itens": [
   {
    "hora": "",
@@ -149,12 +149,12 @@
   {
    "hora": "",
    "quem": "Flávio",
-   "veredito": "Enganoso",
-   "disse": "Que Jair Bolsonaro concluiu a transposição do São Francisco e fez a água chegar ao Nordeste.",
-   "fato": "Gestões anteriores entregaram mais de 90% da infraestrutura prevista, segundo o Projeto Comprova (2022). O Eixo Leste foi inaugurado em 2017, por Temer. O governo Bolsonaro inaugurou trechos finais do Eixo Norte (2020) e o Ramal do Agreste, mas não concluiu a obra sozinho.",
+   "veredito": "Exagerado",
+   "disse": "Que Jair Bolsonaro concluiu as obras da transposição do São Francisco e fez a água chegar ao Nordeste.",
+   "fato": "O governo Bolsonaro inaugurou trechos (Eixo Norte, em 2020, e outras etapas em 2022), mas a obra segue em andamento. O Eixo Leste opera parcialmente desde 2017. A Revista Fórum classificou a mesma fala como Enganoso.",
    "fonte": {
-    "nome": "Revista Fórum (Contra Fake)",
-    "url": "https://revistaforum.com.br/blogs/contra-fake/checagem-debate-transposicao-sao-francisco/"
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
    }
   },
   {
@@ -196,6 +196,17 @@
    "veredito": "Falta contexto",
    "disse": "Que, se Bolsonaro continuasse, a taxa de juros hoje estaria em torno de 7%.",
    "fato": "O Boletim Focus de 7 de outubro de 2022 projetava Selic de 7,75% em 2025. Era expectativa do mercado, não meta do governo. A Selic estava em 13,75% em outubro de 2022, no governo Bolsonaro.",
+   "fonte": {
+    "nome": "Agência Lupa",
+    "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Verdadeiro",
+   "disse": "“Nunca se exportou tanto neste país.”",
+   "fato": "Em 2025, o Brasil teve o maior valor anual de exportações desde 1997: US$ 348,3 bilhões. De janeiro a setembro de 2026, foram US$ 284,6 bilhões, alta de 10,4% sobre o mesmo período de 2025.",
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
