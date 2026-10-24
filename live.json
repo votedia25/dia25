@@ -1,7 +1,7 @@
 {
  "ativo": true,
  "titulo": "Checagem ao vivo: debate da Globo",
- "atualizado": "23:01",
+ "atualizado": "23:13",
  "itens": [
   {
    "hora": "",
@@ -144,6 +144,28 @@
    "fonte": {
     "nome": "Agência Lupa",
     "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/"
+   }
+  },
+  {
+   "hora": "",
+   "quem": "Flávio",
+   "veredito": "Enganoso",
+   "disse": "Que Jair Bolsonaro concluiu a transposição do São Francisco e fez a água chegar ao Nordeste.",
+   "fato": "Gestões anteriores entregaram mais de 90% da infraestrutura prevista, segundo o Projeto Comprova (2022). O Eixo Leste foi inaugurado em 2017, por Temer. O governo Bolsonaro inaugurou trechos finais do Eixo Norte (2020) e o Ramal do Agreste, mas não concluiu a obra sozinho.",
+   "fonte": {
+    "nome": "Revista Fórum (Contra Fake)",
+    "url": "https://revistaforum.com.br/blogs/contra-fake/checagem-debate-transposicao-sao-francisco/"
+   }
+  },
+  {
+   "hora": "22:33",
+   "quem": "Lula",
+   "veredito": "Verdadeiro",
+   "disse": "Que Flávio foi o único deputado estadual do Rio a votar contra ampliar a licença-maternidade.",
+   "fato": "Em 2009, a Alerj aprovou a ampliação da licença das servidoras de 120 para 180 dias, e o único voto contrário foi o de Flávio, segundo registros da Alerj. Lupa, Aos Fatos e Estadão Verifica chegaram à mesma conclusão no debate da Band.",
+   "fonte": {
+    "nome": "Revista Fórum (Contra Fake)",
+    "url": "https://revistaforum.com.br/blogs/contra-fake/checagem-debate-globo-l17-em-2009-flavio-foi-o-unico-de-49-deputados-d/"
    }
   }
  ]
