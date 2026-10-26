@@ -128,7 +128,9 @@
       try { sessionStorage.setItem("splash", "1"); } catch (e) {}
       var rm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
       var fim = function () { if (sp.classList.contains("sai")) return; sp.classList.add("sai"); setTimeout(function () { sp.remove(); }, rm ? 60 : 420); };
-      sp.addEventListener("click", fim); setTimeout(fim, rm ? 500 : 2600);
+      var ce = document.getElementById("cena");
+      if (ce && window.Urna3D) { var u3 = null; try { u3 = Urna3D.criar(ce, { parado: rm }); } catch (e) {} if (u3) ce.classList.add("u"); }
+      sp.addEventListener("click", fim); setTimeout(fim, rm ? 700 : 3800);
     }
   }
 })();

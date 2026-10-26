@@ -154,9 +154,9 @@ h2{margin:26px 0 8px;font-size:18px;font-weight:800;letter-spacing:-.01em}
 .m3d.full .m3d-zoom{bottom:max(8px,env(safe-area-inset-bottom));right:8px}
 html.m3d-trava,html.m3d-trava body{overflow:hidden}
 /* abertura 3D */
-.splash{position:fixed;inset:0;z-index:300;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .4s}
+.splash{position:fixed;inset:0;z-index:300;background:#1E1B4B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .4s}
 .splash.sai{opacity:0;pointer-events:none}
-.cena{perspective:900px;width:170px;height:170px;display:flex;align-items:center;justify-content:center}
+.cena{perspective:900px;width:170px;height:170px;position:relative;display:flex;align-items:center;justify-content:center}
 .tile{position:relative;width:128px;height:128px;transform-style:preserve-3d;animation:gira 2.2s cubic-bezier(.22,.8,.25,1) both}
 .tile .f,.tile .b{position:absolute;inset:0;backface-visibility:hidden}.tile .f{transform:translateZ(13px)}.tile .b{transform:rotateY(180deg) translateZ(13px)}
 .tile svg{width:128px;height:128px;display:block}
@@ -172,10 +172,15 @@ html.m3d-trava,html.m3d-trava body{overflow:hidden}
 @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes barra{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){.tile,.st span,.ss,.sbar{animation:none}}
 
+.cena.u{perspective:none;width:min(360px,92vw);height:min(270px,69vw)}.cena.u canvas{width:100%;height:100%;display:block}.cena.u .tile{display:none}
+.splash .st span{color:#EEF2FF;text-shadow:1px 1px 0 #4338CA,2px 2px 0 #4338CA,3px 3px 0 #4338CA,4px 4px 0 #4338CA;animation-delay:1.8s}
+.splash .st span+span{color:#F5D0FE;text-shadow:1px 1px 0 #A21CAF,2px 2px 0 #A21CAF,3px 3px 0 #A21CAF,4px 4px 0 #A21CAF;animation-delay:1.95s}
+.splash .ss{color:#C7D2FE;animation-delay:2.2s}.splash .sbar{animation-delay:2.1s}
+
 </style>
 </head>
 <body>
-<div class="splash" id="splash" aria-hidden="true"><div class="cena"><div class="tile"><span class="b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#4F46E5"/>
+<div class="splash" id="splash" aria-hidden="true"><div class="cena" id="cena"><div class="tile"><span class="b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#4F46E5"/>
 <rect x="17" y="8" width="30" height="34" rx="4" fill="#fff"/><path d="M31.9716796875 38.33203125C38.09765625 38.33203125 41.75 35.5263671875 41.75 30.828125C41.75 26.876953125 38.9775390625 24.486328125 34.1962890625 23.4404296875L32.0546875 22.9423828125C29.8466796875 22.4443359375 28.40234375 21.7138671875 28.40234375 20.1865234375C28.40234375 18.80859375 29.6142578125 17.7958984375 31.955078125 17.7958984375C34.3125 17.7958984375 35.6240234375 18.841796875 35.7900390625 20.634765625H41.41796875C41.3515625 16.052734375 37.69921875 12.931640625 31.9716796875 12.931640625C26.3603515625 12.931640625 22.3427734375 16.0029296875 22.3427734375 20.5849609375C22.3427734375 24.3037109375 24.9326171875 26.4453125 29.19921875 27.4248046875L31.822265625 28.0390625C34.5283203125 28.6533203125 35.8232421875 29.400390625 35.8232421875 30.8115234375C35.8232421875 32.388671875 34.3291015625 33.4677734375 31.9052734375 33.4677734375C29.232421875 33.4677734375 27.4560546875 32.2392578125 27.3232421875 29.83203125H21.6953125C21.794921875 35.54296875 25.779296875 38.33203125 31.9716796875 38.33203125Z" fill="#4F46E5"/><circle cx="43" cy="14" r="4.2" fill="#D946EF"/>
 <rect x="9" y="38" width="46" height="18" rx="5" fill="#fff"/><rect x="15" y="44" width="34" height="5" rx="2.5" fill="#4F46E5"/></svg></span><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i style="--n:4"></i><i style="--n:5"></i><i style="--n:6"></i><i style="--n:7"></i><i style="--n:8"></i><i style="--n:9"></i><span class="f"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#4F46E5"/>
 <rect x="17" y="8" width="30" height="34" rx="4" fill="#fff"/><path d="M31.9716796875 38.33203125C38.09765625 38.33203125 41.75 35.5263671875 41.75 30.828125C41.75 26.876953125 38.9775390625 24.486328125 34.1962890625 23.4404296875L32.0546875 22.9423828125C29.8466796875 22.4443359375 28.40234375 21.7138671875 28.40234375 20.1865234375C28.40234375 18.80859375 29.6142578125 17.7958984375 31.955078125 17.7958984375C34.3125 17.7958984375 35.6240234375 18.841796875 35.7900390625 20.634765625H41.41796875C41.3515625 16.052734375 37.69921875 12.931640625 31.9716796875 12.931640625C26.3603515625 12.931640625 22.3427734375 16.0029296875 22.3427734375 20.5849609375C22.3427734375 24.3037109375 24.9326171875 26.4453125 29.19921875 27.4248046875L31.822265625 28.0390625C34.5283203125 28.6533203125 35.8232421875 29.400390625 35.8232421875 30.8115234375C35.8232421875 32.388671875 34.3291015625 33.4677734375 31.9052734375 33.4677734375C29.232421875 33.4677734375 27.4560546875 32.2392578125 27.3232421875 29.83203125H21.6953125C21.794921875 35.54296875 25.779296875 38.33203125 31.9716796875 38.33203125Z" fill="#4F46E5"/><circle cx="43" cy="14" r="4.2" fill="#D946EF"/>
@@ -263,6 +268,7 @@ html.m3d-trava,html.m3d-trava body{overflow:hidden}
 <script src="brazil-poly.js" defer></script>
 <script src="mapa3d.js" defer></script>
 <script src="placar3d.js" defer></script>
+<script src="urna3d.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>
