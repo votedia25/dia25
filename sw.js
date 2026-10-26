@@ -1,5 +1,5 @@
 // Rede primeiro, cache como reserva: o conteúdo atualiza sempre que houver internet.
-var C = "dia25-v1";
+var C = "sufragio-v1";
 self.addEventListener("install", function (e) { self.skipWaiting(); });
 self.addEventListener("activate", function (e) {
   e.waitUntil(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k !== C; }).map(function (k) { return caches.delete(k); })); }).then(function () { return self.clients.claim(); }));
