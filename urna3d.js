@@ -13,9 +13,11 @@ function M(c){return new T.MeshLambertMaterial({color:c})}
 function tex(w,h,fn){var c=document.createElement("canvas");c.width=w;c.height=h;var t=new T.CanvasTexture(c);t.anisotropy=4;t.c=c;t.x=c.getContext("2d");fn(t.x,w,h,0);t.fn=fn;return t}
 var raiz=new T.Group();sc.add(raiz);var u=new T.Group();raiz.add(u);
 /* corpo */
-var corpo=new T.Mesh(new T.BoxGeometry(4.6,.7,3),M(0x9A9AA6));corpo.position.y=.35;u.add(corpo);
-var topo=new T.Group();topo.position.set(0,.8,0);topo.rotation.x=.42;u.add(topo);
-var painel=new T.Mesh(new T.BoxGeometry(4.6,.12,3.1),M(0xC4C4CC));topo.add(painel);
+var sh=new T.Shape();sh.moveTo(-1.3,0);sh.lineTo(1.3,0);sh.lineTo(1.3,.05);sh.lineTo(-1.3,2.15);sh.lineTo(-1.3,0);
+var gc=new T.ExtrudeGeometry(sh,{depth:4.5,bevelEnabled:false});gc.rotateY(-Math.PI/2);gc.translate(2.25,0,0);
+var corpo=new T.Mesh(gc,M(0x9A9AA6));u.add(corpo);
+var topo=new T.Group();topo.position.set(0,1.17,0);topo.rotation.x=.68;u.add(topo);
+var painel=new T.Mesh(new T.BoxGeometry(4.6,.12,2.6),M(0xC4C4CC));topo.add(painel);
 /* tela */
 var tela=tex(512,384,function(x,w,h,k){
   x.fillStyle="#F8FAFC";x.fillRect(0,0,w,h);
@@ -59,7 +61,7 @@ function quadro(t){
   
 }
 
-  function tam(){var w=host.clientWidth||320,h=host.clientHeight||240;r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();var a=w/h;var d=Math.max(7.5,3.7/(Math.tan(Math.PI/12)*a));cam.position.set(0,d*.52,d*.86);cam.lookAt(0,.5,0)}
+  function tam(){var w=host.clientWidth||320,h=host.clientHeight||240;r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();var a=w/h;var d=Math.max(7.5,3.7/(Math.tan(Math.PI/12)*a));cam.position.set(0,d*.52,d*.86);cam.lookAt(0,.7,0)}
   window.addEventListener("resize",tam);tam();
   function parar(){vivo=false;window.removeEventListener("resize",tam);r.dispose&&r.dispose()}
   function loop(n){ if(!vivo||!host.isConnected){parar();return} if(!t0)t0=n; var t=(n-t0)/1000; quadro(Math.min(t,6)); r.render(sc,cam); requestAnimationFrame(loop)}
