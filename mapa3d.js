@@ -83,7 +83,7 @@
       function resize() {
         w = host.clientWidth || 300; h = host.clientHeight || 300;
         r.setPixelRatio(Math.min(window.devicePixelRatio || 1, FRACO ? 1.25 : 2)); r.setSize(w, h, false);
-        cam.aspect = w / h; var ju = host.classList.contains("full") ? 0.82 : 0.78; R = ju * Math.max(22, 8.3 / (0.268 * Math.min(cam.aspect, 1.3))); cam.updateProjectionMatrix(); acordar();
+        cam.aspect = w / h; var ju = host.classList.contains("full") ? 0.8 : 0.72; R = ju * Math.max(22, 8.3 / (0.268 * Math.min(cam.aspect, 1.3))); cam.updateProjectionMatrix(); acordar();
       }
       var plano = new T.Plane(new T.Vector3(0, 1, 0), -0.3), pt = new T.Vector3();
       function chao(cx, cy) {
@@ -125,7 +125,7 @@
         setTimeout(resize, 30); acordar();
       }
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") expandir(false); });
-      function modoFoco() { return host.classList.contains("full") || document.documentElement.getAttribute("data-fase") === "apuracao"; }
+      function modoFoco() { return true; }
       zb.addEventListener("click", function (e) {
         var b = e.target.closest("button"); if (!b) return;
         var i = +b.dataset.z;
@@ -215,7 +215,7 @@
           var uf = hit ? hit.object.userData.uf : null;
           var novo = uf === sel ? null : uf;
           api.selecionar(novo);
-          if (modoFoco()) { if (novo && est[novo]) voarPara(Math.max(Z, 2.4), est[novo].bx, est[novo].bz - 0.2); else if (!novo) voarPara(Math.min(Z, 1.6), tx, tz); }
+          if (modoFoco()) { if (novo && est[novo]) voarPara(Math.max(Z, 1.8), est[novo].bx, est[novo].bz - 0.2); else if (!novo) voarPara(Math.min(Z, 1.6), tx, tz); }
           if (opt && opt.onSelecionar) opt.onSelecionar(novo);
         }
       }
